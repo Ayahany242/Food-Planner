@@ -5,7 +5,6 @@ import com.example.myapplication.homeActivity.model.allCategory.AllCategoryRespo
 import com.example.myapplication.homeActivity.model.allCountries.CountryListResponse;
 import com.example.myapplication.homeActivity.model.randomModel.RandomMealResponse;
 
-import io.reactivex.rxjava3.core.Single;
 import retrofit2.Call;
 import retrofit2.http.GET;
 

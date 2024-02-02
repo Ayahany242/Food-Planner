@@ -20,6 +20,8 @@
     <string name="country">Country</string>
     <string name="favorite">Favorite</string>
     <string name="randomMeal">Daily Inspirattion</string>
+    <string name="fav_meals">Favorite Meals</string>
+    <string name="setting">Settings</string>
 
     <string-array name="flags">
         <item>https://www.worldometers.info/img/flags/us-flag.gif</item>

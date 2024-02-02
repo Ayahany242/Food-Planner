@@ -10,13 +10,13 @@ import com.example.myapplication.homeActivity.model.randomModel.MealsItem;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
 
 @Dao
 public interface MealDao {
     @Query("SELECT * FROM MEALTABLE")
-    Single<List<MealsItem>> getAllFavoriteMeal();
-
+    public Flowable<List<MealsItem>> getAllFavoriteMeal();
     @Query("Select idMeal FROM MEALTABLE WHERE idMeal =:idMeal")
     public Single<String> getMealId(String idMeal);
     @Insert(onConflict = OnConflictStrategy.IGNORE)

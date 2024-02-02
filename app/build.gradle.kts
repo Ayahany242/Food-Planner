@@ -13,7 +13,6 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -54,10 +53,10 @@ dependencies {
     implementation("com.google.android.gms:play-services-auth:20.7.0")
 
     //Retrofit
-    implementation ("com.squareup.retrofit2:retrofit:2.4.0")
-    implementation ("com.squareup.retrofit2:converter-gson:2.4.0")
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
     //Glide
-    implementation ("com.github.bumptech.glide:glide:4.12.0")
+    implementation ("com.github.bumptech.glide:glide:4.14.2")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
     //card
     implementation ("com.google.android.material:material:1.11.0")
@@ -65,8 +64,13 @@ dependencies {
     implementation ("io.reactivex.rxjava3:rxandroid:3.0.2")
     implementation ("io.reactivex.rxjava3:rxjava:3.1.6")
     implementation("androidx.room:room-rxjava3:2.6.1")
+
     //Room DataBase
     implementation ("androidx.room:room-runtime:2.6.1")
     annotationProcessor ("androidx.room:room-compiler:2.6.1")
-
+    //Navigation Component
+    implementation ("androidx.navigation:navigation-fragment:2.7.6")
+    implementation ("androidx.navigation:navigation-ui:2.7.6")
+    //circleimageview
+    implementation ("de.hdodenhof:circleimageview:3.1.0")
 }

@@ -1,4 +1,4 @@
-package com.example.myapplication.homeActivity.view.allMealsFragment;
+package com.example.myapplication.allMealsFragment;
 
 import android.os.Bundle;
 

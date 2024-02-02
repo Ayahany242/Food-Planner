@@ -8,20 +8,21 @@ import com.example.myapplication.homeActivity.model.randomModel.MealsItem;
 
 import java.util.List;
 
-import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MealLocalDataSourceImpl implements MealLocalDataSource {
-    private static final String TAG = "DataBase";
+    private static final String TAG = "Tag";
     private MealDao dao;
     private static MealLocalDataSourceImpl localDataSource = null;
-    private Single<List<MealsItem>> storedMeals;
+    private Flowable<List<MealsItem>> storedMeals;
     private MealLocalDataSourceImpl(Context context){
         AppDataBase db = AppDataBase.getInstance(context);
         dao = db.getMealDao();
-        storedMeals =dao.getAllFavoriteMeal();
-        Log.i(TAG, "Get fav meals: "+storedMeals.toString());
+        storedMeals = dao.getAllFavoriteMeal();
+        Log.i(TAG, "MealLocalDataSourceImpl: storedMeals ");
+       // Log.i(TAG, "Get fav meals: "+storedMeals.toString());
     }
     public static MealLocalDataSourceImpl getInstance(Context context){
         if(localDataSource ==null)
@@ -30,7 +31,13 @@ public class MealLocalDataSourceImpl implements MealLocalDataSource {
     }
 
     @Override
-    public Single<List<MealsItem>>  getAllFavoriteMeal() {
+    public Flowable<List<MealsItem>> getAllFavoriteMeal() {
+       /* storedMeals.subscribe(
+                meals -> Log.i(TAG, "Favorite meals emitted: " + meals),
+                throwable -> Log.i(TAG, "Error retrieving favorite meals", throwable)
+        );*/
+     //  return dao.getAllFavoriteMeal().subscribeOn(Schedulers.io());
+        Log.i(TAG, "getAllFavoriteMeal: local DB");
         return storedMeals;
     }
 
@@ -62,6 +69,4 @@ public class MealLocalDataSourceImpl implements MealLocalDataSource {
         return Single.fromCallable(() -> dao.getMealId(idMeal) != null)
                 .subscribeOn(Schedulers.io()).contains(idMeal);
     }
-
-
 }

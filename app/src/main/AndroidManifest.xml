@@ -15,6 +15,9 @@
         android:theme="@style/Theme.MaterialComponents.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".mealsData.MealsDataActivity"
+            android:exported="false" />
+        <activity
             android:name=".homeActivity.view.HomeActivity"
             android:exported="false" />
         <activity

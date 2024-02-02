@@ -1,28 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="38dp" />
+        app:layout_constraintGuide_begin="16dp" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/countryCardView"
-        android:layout_width="310dp"
-        android:layout_height="320dp"
-        app:cardUseCompatPadding="true"
+        android:layout_width="match_parent"
+        android:layout_height="440dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_weight="1.5"
         android:elevation="22dp"
         app:cardCornerRadius="22dp"
+        app:cardUseCompatPadding="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline9">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linearLayout2"
@@ -31,46 +33,84 @@
 
             <!-- Media -->
             <ImageView
-                android:id="@+id/countryImage"
+                android:id="@+id/mealImage"
                 android:layout_width="0dp"
-                android:layout_height="200dp"
-                android:scaleType="centerCrop"
+                android:layout_height="300dp"
+                android:scaleType="fitXY"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@tools:sample/avatars" />
 
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/favouriteMealBtn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="68dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/favorite_fill_ic"
+                android:contentDescription="@string/favorite"
+                android:padding="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/mealAreaTv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/mealAreaTv"
+                app:layout_constraintTop_toTopOf="@+id/guideline7"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:id="@+id/mealTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:paddingStart="8dp"
+                android:text="Title"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mealImage" />
+
+            <TextView
+                android:id="@+id/categoryTv"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:padding="8dp"
+                android:text="@string/category"
+                android:textAppearance="?attr/textAppearanceBody2"
+                android:textColor="?android:attr/textColorSecondary"
+                app:layout_constraintStart_toStartOf="@+id/mealTitle"
+                app:layout_constraintTop_toBottomOf="@+id/mealTitle" />
+
+            <TextView
+                android:id="@+id/areaTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="8dp"
+                android:text="@string/area"
+                android:textAppearance="?attr/textAppearanceBody2"
+                android:textColor="?android:attr/textColorSecondary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/categoryTv" />
+
             <TextView
                 android:id="@+id/categoryMeal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/category"
-                android:paddingStart="8dp"
-                android:textAppearance="?attr/textAppearanceHeadline6"
-                app:layout_constraintBottom_toTopOf="@+id/guideline6"
-                app:layout_constraintStart_toStartOf="@+id/guideline4"
-                app:layout_constraintTop_toTopOf="@+id/guideline7"
-                app:layout_constraintVertical_bias="0.255" />
+                android:padding="8dp"
+                android:text="TextView"
+                app:layout_constraintBottom_toBottomOf="@+id/categoryTv"
+                app:layout_constraintStart_toEndOf="@+id/categoryTv"
+                app:layout_constraintTop_toTopOf="@+id/categoryTv" />
 
             <TextView
                 android:id="@+id/mealAreaTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:padding="8dp"
-                android:ellipsize="end"
-                android:maxLines="3"
-                android:minLines="3"
-                android:text="@string/description"
-                android:textAppearance="?attr/textAppearanceBody2"
-                android:textColor="?android:attr/textColorSecondary"
-                app:layout_constraintBottom_toTopOf="@+id/guideline2"
-                app:layout_constraintEnd_toStartOf="@+id/guideline15"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/categoryMeal"
-                app:layout_constraintTop_toBottomOf="@+id/categoryMeal"
-                app:layout_constraintVertical_bias="1.0" />
+                android:paddingStart="8dp"
+                android:text="TextView"
+                app:layout_constraintBottom_toBottomOf="@+id/areaTv"
+                app:layout_constraintStart_toEndOf="@+id/areaTv"
+                app:layout_constraintTop_toTopOf="@+id/areaTv" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline4"
@@ -95,28 +135,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="237dp" />
+                app:layout_constraintGuide_end="13dp" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="194dp" />
+                app:layout_constraintGuide_begin="288dp" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="303dp" />
+                app:layout_constraintGuide_begin="288dp" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_end="16dp" />
+                app:layout_constraintGuide_begin="275dp" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -127,7 +167,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="36dp" />
+        app:layout_constraintGuide_end="56dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline9"
@@ -136,4 +176,4 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="16dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>

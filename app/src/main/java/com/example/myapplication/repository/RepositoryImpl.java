@@ -7,14 +7,10 @@ import com.example.myapplication.repository.localData.MealLocalDataSource;
 import com.example.myapplication.repository.network.NetworkCallback;
 import com.example.myapplication.repository.network.RemoteDataSource;
 
-import org.jetbrains.annotations.Async;
-
-import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
-import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class RepositoryImpl implements RepositoryView{
     private final RemoteDataSource remoteDataSource;
@@ -34,7 +30,6 @@ public class RepositoryImpl implements RepositoryView{
     public void makeNetworkCallForRandomMeal(NetworkCallback callbackRandomMeal) {
         remoteDataSource.makeNetworkCallForRandomMeal(callbackRandomMeal);
     }
-
     @Override
     public void makeNetworkCallForAllCategory(NetworkCallback callback) {
         remoteDataSource.makeNetworkCallForAllCategory(callback);
@@ -46,11 +41,10 @@ public class RepositoryImpl implements RepositoryView{
     }
 
     @Override
-    public Single<List<MealsItem>> getAllFavoriteMeals() {
+    public Flowable<List<MealsItem>> getAllFavoriteMeal() {
         Log.i(TAG, "getAllFavoriteMeals: repo");
         return localDataSource.getAllFavoriteMeal();
     }
-
     @Override
     public void deleteMealFromFavorite(MealsItem item) {
         localDataSource.deleteFromFavoriteMeal(item);
@@ -62,7 +56,6 @@ public class RepositoryImpl implements RepositoryView{
         localDataSource.addToFavoriteMeal(item);
         Log.i(TAG, "addMealToFavorite: repo ");
     }
-
     @Override
     public Single<Boolean> isMealExists(String idMeal) {
         return localDataSource.isMealExists(idMeal);
