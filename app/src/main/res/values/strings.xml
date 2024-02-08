@@ -19,9 +19,18 @@
     <string name="description">Description</string>
     <string name="country">Country</string>
     <string name="favorite">Favorite</string>
-    <string name="randomMeal">Daily Inspirattion</string>
+    <string name="randomMeal">Daily Inspiration</string>
     <string name="fav_meals">Favorite Meals</string>
     <string name="setting">Settings</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="youtube">YouTube</string>
+    <string name="steps">Steps</string>
+    <string name="searchbyname">search by name</string>
+    <string name="searchIngredient">Search by Ingredient</string>
+    <string name="searchCountry">Search by Country</string>
+    <string name="view_all">View All</string>
+    <string name="date">Date</string>
+    <string name="planner">Your Plan</string>
 
     <string-array name="flags">
         <item>https://www.worldometers.info/img/flags/us-flag.gif</item>
@@ -31,6 +40,7 @@
         <item>https://www.worldometers.info/img/flags/hr-flag.gif</item>
         <item>https://www.worldometers.info/img/flags/nl-flag.gif</item>
         <item>https://www.worldometers.info/img/flags/eg-flag.gif</item>
+        <item>https://www.worldometers.info/img/flags/fi-flag.gif</item>
         <item>https://www.worldometers.info/img/flags/fr-flag.gif</item>
         <item>https://www.worldometers.info/img/flags/gr-flag.gif</item>
         <item>https://www.worldometers.info/img/flags/in-flag.gif</item>

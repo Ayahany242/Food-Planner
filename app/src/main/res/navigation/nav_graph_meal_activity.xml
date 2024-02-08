@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_meal_activity"
+    app:startDestination="@id/mealDetailsFragment">
+
+
+    <fragment
+        android:id="@+id/mealDetailsFragment"
+        android:name="com.example.myapplication.mealDetails.mealDetails.view.MealDetailsFragment"
+        android:label="MealDetails"
+        tools:layout="@layout/fragment_meal_details" >
+        <argument
+            android:name="selectedMeal"
+            app:argType="string" />
+    </fragment>
+</navigation>

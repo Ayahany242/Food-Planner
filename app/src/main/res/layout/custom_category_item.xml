@@ -13,7 +13,7 @@
         app:layout_constraintGuide_begin="38dp" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/countryCardView"
+        android:id="@+id/categoryCardView"
         android:layout_width="310dp"
         android:layout_height="320dp"
         app:cardUseCompatPadding="true"

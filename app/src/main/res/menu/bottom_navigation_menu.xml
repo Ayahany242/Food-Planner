@@ -11,10 +11,10 @@
         android:title="@string/favorites"
         android:icon="@drawable/favorite_ic20"/>
     <item
-        android:id="@+id/searchFragment"
+        android:id="@+id/planMealFragment"
         android:enabled="true"
-        android:title="@string/search"
-        android:icon="@drawable/search_ic20"/>
+        android:title="@string/planner"
+        android:icon="@drawable/calendar"/>
     <item
         android:id="@+id/settingFragment"
         android:enabled="true"

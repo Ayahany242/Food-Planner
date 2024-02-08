@@ -1,6 +1,6 @@
 package com.example.myapplication.repository.localData;
 
-import com.example.myapplication.homeActivity.model.randomModel.MealsItem;
+import com.example.myapplication.homeActivity.model.mealData.MealsItem;
 
 import java.util.List;
 

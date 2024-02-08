@@ -9,7 +9,11 @@
         android:id="@+id/mealsHomeFragment"
         android:name="com.example.myapplication.homeActivity.homeScreen.homeFragment.MealsHomeFragment"
         android:label="Home"
-        tools:layout="@layout/fragment_meals_home" />
+        tools:layout="@layout/fragment_meals_home" >
+        <action
+            android:id="@+id/action_mealsHomeFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+    </fragment>
     <fragment
         android:id="@+id/favoriteMealsFragment"
         android:name="com.example.myapplication.homeActivity.favoriteMealsFragment.view.FavoriteMealsFragment"
@@ -17,12 +21,58 @@
         tools:layout="@layout/fragment_favorite_meals" />
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.example.myapplication.homeActivity.searchFragment.SearchFragment"
+        android:name="com.example.myapplication.homeActivity.searchFragment.view.SearchFragment"
         android:label="@string/search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_searchByCountryFragment"
+            app:destination="@id/searchByCountryFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_searchByIngredientsFragment"
+            app:destination="@id/searchByIngredientsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/settingFragment"
         android:name="com.example.myapplication.homeActivity.settingFragment.SettingFragment"
         android:label="@string/setting"
         tools:layout="@layout/fragment_setting" />
+    <fragment
+        android:id="@+id/allMealsFragment"
+        android:name="com.example.myapplication.homeActivity.allMealsFragment.view.AllMealsFragment"
+        android:label="Meals"
+        tools:layout="@layout/fragment_all_meals" >
+        <argument android:name="contentName" />
+        <argument
+            android:name="source"
+            app:argType="string" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/searchByIngredientsFragment"
+        android:name="com.example.myapplication.homeActivity.searchFragment.searchIngredients.view.SearchByIngredientsFragment"
+        android:label="Search By Ingredients"
+        tools:layout="@layout/fragment_search_by_ingredients">
+        <argument
+            android:name="ingredientsList"
+            app:argType="com.example.myapplication.mealDetails.model.IngredientModel[]" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchByNameFragment"
+        android:name="com.example.myapplication.homeActivity.searchFragment.searchByName.view.SearchByNameFragment"
+        android:label="Search By Name"
+        tools:layout="@layout/fragment_search_by_name" />
+    <fragment
+        android:id="@+id/searchByCountryFragment"
+        android:name="com.example.myapplication.homeActivity.searchFragment.seachCountries.view.SearchByCountryFragment"
+        android:label="fragment_search_by_country"
+        tools:layout="@layout/fragment_search_by_country" >
+        <argument
+            android:name="countriesList"
+            app:argType="com.example.myapplication.homeActivity.model.allCountries.Country[]" />
+    </fragment>
+    <fragment
+        android:id="@+id/planMealFragment"
+        android:name="com.example.myapplication.homeActivity.planMealFragment.view.PlanMealFragment"
+        android:label="fragment_plan_meal"
+        tools:layout="@layout/fragment_plan_meal" />
 </navigation>

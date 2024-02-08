@@ -2,7 +2,7 @@ package com.example.myapplication.repository;
 
 import android.util.Log;
 
-import com.example.myapplication.homeActivity.model.randomModel.MealsItem;
+import com.example.myapplication.homeActivity.model.mealData.MealsItem;
 import com.example.myapplication.repository.localData.MealLocalDataSource;
 import com.example.myapplication.repository.network.NetworkCallback;
 import com.example.myapplication.repository.network.RemoteDataSource;
@@ -27,19 +27,58 @@ public class RepositoryImpl implements RepositoryView{
         return repository;
     }
     @Override
-    public void makeNetworkCallForRandomMeal(NetworkCallback callbackRandomMeal) {
+    public void makeNetworkCallForRandomMeal(NetworkCallback.HomeRequestData  callbackRandomMeal) {
         remoteDataSource.makeNetworkCallForRandomMeal(callbackRandomMeal);
     }
     @Override
-    public void makeNetworkCallForAllCategory(NetworkCallback callback) {
+    public void makeNetworkCallForAllCategory(NetworkCallback.HomeRequestData  callback) {
         remoteDataSource.makeNetworkCallForAllCategory(callback);
     }
 
     @Override
-    public void makeNetworkCallForAllCountries(NetworkCallback callback) {
+    public void makeNetworkCallForSearchByName(NetworkCallback.ResultSearchByName callback, String text) {
+        remoteDataSource.makeNetworkCallForSearchByName(callback,text);
+    }
+
+  /*   @Override
+    public void makeNetworkCallForSearch(NetworkCallback.ResultSearchByName callback, String text) {
+       // remoteDataSource.makeNetworkCallForSearchByName(callback, text);
+    }
+
+   @Override
+    public void makeNetworkCallForAllCountries(NetworkCallback.HomeRequestData  callback) {
+        remoteDataSource.makeNetworkCallForAllCountries(callback);
+    }*/
+
+    @Override
+    public void makeNetworkCallForAllCountries(NetworkCallback.SearchRequestData callback) {
         remoteDataSource.makeNetworkCallForAllCountries(callback);
     }
 
+    @Override
+    public void makeNetworkCallForAllIngredients(NetworkCallback.SearchRequestData callback) {
+        remoteDataSource.makeNetworkCallForAllIngredients(callback);
+    }
+
+    @Override
+    public void makeNetworkCallMealsDataInCategory(NetworkCallback.MealsDataRequest callback, String category) {
+        remoteDataSource.makeNetworkCallMealsDataInCategory(callback,category);
+    }
+
+    @Override
+    public void makeNetworkCallMealsDataInArea(NetworkCallback.MealsDataRequest callback, String area) {
+        remoteDataSource.makeNetworkCallMealsDataInArea(callback,area);
+    }
+
+    @Override
+    public void makeNetworkCallMealsDataInIngredient(NetworkCallback.MealsDataRequest callback, String ingredient) {
+        remoteDataSource.makeNetworkCallMealsDataInIngredient(callback,ingredient);
+    }
+
+    @Override
+    public void makeNetworkCallMealDetails(NetworkCallback.MealsDetailsRequest callback, String mealId) {
+        remoteDataSource.makeNetworkCallMealDetails(callback, mealId);
+    }
     @Override
     public Flowable<List<MealsItem>> getAllFavoriteMeal() {
         Log.i(TAG, "getAllFavoriteMeals: repo");

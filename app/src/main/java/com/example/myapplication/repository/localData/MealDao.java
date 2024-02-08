@@ -6,7 +6,8 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.example.myapplication.homeActivity.model.randomModel.MealsItem;
+import com.example.myapplication.homeActivity.model.mealData.MealsItem;
+import com.example.myapplication.homeActivity.planMealFragment.model.MealsPlan;
 
 import java.util.List;
 
@@ -23,4 +24,6 @@ public interface MealDao {
     void insertFavoriteMeal(MealsItem meal);
     @Delete
     void deleteMealFromFavorite(MealsItem meal);
+
+
 }

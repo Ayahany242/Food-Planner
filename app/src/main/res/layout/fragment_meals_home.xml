@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:splitMotionEvents="false"
+    android:background="@color/gray"
     tools:context=".homeActivity.homeScreen.homeFragment.MealsHomeFragment">
 
     <LinearLayout
@@ -15,6 +16,30 @@
         android:orientation="vertical"
         android:splitMotionEvents="false"
         android:weightSum="5">
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@drawable/app_bar_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/search_btn_fragment"
+                android:layout_width="360dp"
+                android:layout_height="56dp"
+                android:layout_gravity="center|center_horizontal"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/search_style"
+                android:drawableStart="@drawable/search_ic20"
+                android:drawablePadding="8dp"
+                android:hint="@string/search"
+                android:paddingStart="16dp"
+                android:textAlignment="viewStart"
+                app:layout_anchor="@+id/materialToolbar"
+                tools:ignore="RtlCompat" />
+        </FrameLayout>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,7 +52,7 @@
             android:layout_width="310dp"
            android:layout_height="wrap_content"
             android:layout_weight="1.5"
-            android:id="@+id/countryCardView"
+            android:id="@+id/randomCardView"
             app:cardUseCompatPadding="true"
             android:elevation="16dp"
             app:cardCornerRadius="22dp"
@@ -38,17 +63,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 >
-
-                <!-- Media -->
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/favouriteMealBtn"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="68dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="@drawable/favorite_ic"
-                    android:contentDescription="@string/favorite"
-                    android:padding="8dp"
+                <ImageButton
+                    android:id="@+id/favoriteRandomMealBtn"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/circle_btn_bg"
+                    android:baselineAlignBottom="false"
+                    android:src="@drawable/favorite_ic"
+                    app:fabSize="normal"
                     app:layout_constraintBottom_toBottomOf="@+id/mealAreaTv"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
@@ -67,7 +90,7 @@
                     tools:src="@tools:sample/avatars" />
 
                 <TextView
-                    android:id="@+id/title"
+                    android:id="@+id/titleMealTvRow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -85,15 +108,15 @@
                     android:text="@string/category"
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:textColor="?android:attr/textColorSecondary"
-                    app:layout_constraintStart_toStartOf="@+id/title"
-                    app:layout_constraintTop_toBottomOf="@+id/title" />
+                    app:layout_constraintStart_toStartOf="@+id/titleMealTvRow"
+                    app:layout_constraintTop_toBottomOf="@+id/titleMealTvRow" />
 
                 <TextView
                     android:id="@+id/areaTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingStart="8dp"
-                    android:text="@string/area"
+                    android:drawableStart="@drawable/location"
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:textColor="?android:attr/textColorSecondary"
                     app:layout_constraintStart_toStartOf="parent"
@@ -127,7 +150,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    android:text="TextView"
+                    android:text="@string/category"
                     app:layout_constraintBottom_toBottomOf="@+id/category"
                     app:layout_constraintStart_toEndOf="@+id/category"
                     app:layout_constraintTop_toTopOf="@+id/category" />
@@ -137,7 +160,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingStart="8dp"
-                    android:text="TextView"
+                    android:text="@string/area"
                     app:layout_constraintBottom_toBottomOf="@+id/areaTv"
                     app:layout_constraintStart_toEndOf="@+id/areaTv"
                     app:layout_constraintTop_toTopOf="@+id/areaTv" />
@@ -156,20 +179,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1.5"
             android:scrollbars="horizontal" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/country"
-            android:layout_marginStart="8dp"
-            android:textAppearance="?attr/textAppearanceHeadline6"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/countryRecycleView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.5"
-            android:scrollbars="vertical" />
 
     </LinearLayout>
 </ScrollView>

@@ -13,7 +13,7 @@
         app:layout_constraintGuide_begin="16dp" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/countryCardView"
+        android:id="@+id/favoriteMealsCardView"
         android:layout_width="match_parent"
         android:layout_height="440dp"
         android:layout_marginStart="16dp"
@@ -43,15 +43,15 @@
                 tools:src="@tools:sample/avatars" />
 
 
-            <androidx.appcompat.widget.AppCompatImageButton
+            <ImageButton
                 android:id="@+id/favouriteMealBtn"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="68dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/favorite_fill_ic"
-                android:contentDescription="@string/favorite"
-                android:padding="8dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_margin="8dp"
+                android:background="@drawable/circle_btn_bg"
+                android:baselineAlignBottom="false"
+                android:src="@drawable/favorite_fill_ic"
+                app:fabSize="normal"
                 app:layout_constraintBottom_toBottomOf="@+id/mealAreaTv"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -60,7 +60,7 @@
                 app:layout_constraintVertical_bias="1.0" />
 
             <TextView
-                android:id="@+id/mealTitle"
+                android:id="@+id/mealTitleTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -78,8 +78,8 @@
                 android:text="@string/category"
                 android:textAppearance="?attr/textAppearanceBody2"
                 android:textColor="?android:attr/textColorSecondary"
-                app:layout_constraintStart_toStartOf="@+id/mealTitle"
-                app:layout_constraintTop_toBottomOf="@+id/mealTitle" />
+                app:layout_constraintStart_toStartOf="@+id/mealTitleTv"
+                app:layout_constraintTop_toBottomOf="@+id/mealTitleTv" />
 
             <TextView
                 android:id="@+id/areaTv"

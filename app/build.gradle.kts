@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("com.google.gms.google-services")
+    id ("androidx.navigation.safeargs")
 }
 
 android {
@@ -60,10 +61,11 @@ dependencies {
     annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
     //card
     implementation ("com.google.android.material:material:1.11.0")
-    //Rx android
+    //Rx android & Retrofit
     implementation ("io.reactivex.rxjava3:rxandroid:3.0.2")
     implementation ("io.reactivex.rxjava3:rxjava:3.1.6")
     implementation("androidx.room:room-rxjava3:2.6.1")
+    implementation ("com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0")
 
     //Room DataBase
     implementation ("androidx.room:room-runtime:2.6.1")
@@ -73,4 +75,8 @@ dependencies {
     implementation ("androidx.navigation:navigation-ui:2.7.6")
     //circleimageview
     implementation ("de.hdodenhof:circleimageview:3.1.0")
+
+    //youtube player
+    implementation ("com.pierfrancescosoffritti.androidyoutubeplayer:core:11.1.0")
+
 }

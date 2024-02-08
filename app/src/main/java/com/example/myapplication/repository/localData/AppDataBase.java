@@ -8,7 +8,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.example.myapplication.homeActivity.model.randomModel.MealsItem;
+import com.example.myapplication.homeActivity.model.mealData.MealsItem;
 
 @Database(entities = {MealsItem.class},version = 1)
 public abstract class AppDataBase extends RoomDatabase {

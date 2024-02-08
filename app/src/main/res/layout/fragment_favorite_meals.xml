@@ -22,22 +22,12 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="405dp"
-        android:layout_height="100dp"
-        android:background="@drawable/arc_bg"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:layout_width="274dp"
         android:layout_height="30dp"
         android:layout_marginStart="16dp"
         android:text="Aya Hany"
-        android:id="@+id/userName"
-        android:textColor="@color/black"
+        android:id="@+id/containerTv"
         android:textAppearance="?attr/textAppearanceHeadline6"
         app:layout_constraintBottom_toBottomOf="@+id/userProfile"
         app:layout_constraintStart_toEndOf="@+id/userProfile"

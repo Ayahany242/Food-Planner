@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteConstraintException;
 import android.util.Log;
 
-import com.example.myapplication.homeActivity.model.randomModel.MealsItem;
+import com.example.myapplication.homeActivity.model.mealData.MealsItem;
 
 import java.util.List;
 
@@ -29,7 +29,6 @@ public class MealLocalDataSourceImpl implements MealLocalDataSource {
             localDataSource = new MealLocalDataSourceImpl(context);
         return localDataSource;
     }
-
     @Override
     public Flowable<List<MealsItem>> getAllFavoriteMeal() {
        /* storedMeals.subscribe(
@@ -40,7 +39,6 @@ public class MealLocalDataSourceImpl implements MealLocalDataSource {
         Log.i(TAG, "getAllFavoriteMeal: local DB");
         return storedMeals;
     }
-
     @Override
     public void addToFavoriteMeal(MealsItem meal) {
         new Thread(()->{
@@ -66,7 +64,8 @@ public class MealLocalDataSourceImpl implements MealLocalDataSource {
     }
     @Override
     public Single<Boolean> isMealExists(String idMeal) {
-        return Single.fromCallable(() -> dao.getMealId(idMeal) != null)
-                .subscribeOn(Schedulers.io()).contains(idMeal);
+        return dao.getMealId(idMeal).subscribeOn(Schedulers.io()).contains(idMeal);
+//        return Single.fromCallable(() -> dao.getMealId(idMeal) != null)
+//                .subscribeOn(Schedulers.io()).contains(idMeal);
     }
 }
