@@ -7,16 +7,20 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.myapplication.HorizontalItemDecoration;
 import com.example.myapplication.R;
+import com.example.myapplication.homeActivity.planMealFragment.model.MealsPlan;
 import com.example.myapplication.homeActivity.searchFragment.searchIngredients.view.IngredientAdapterRV;
 import com.example.myapplication.homeActivity.view.HomeActivity;
 import com.example.myapplication.mealDetails.model.IngredientModel;
@@ -35,6 +39,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -196,29 +201,46 @@ public class MealsDetailsActivity extends AppCompatActivity implements MealDetai
 
         }
     }
+
+    @Override
+    public void addToPlannedMeal(MealsPlan mealsPlan) {
+
+    }
+
     private void showCalender(){
+        Calendar calendar = Calendar.getInstance();
+        long today = calendar.getTimeInMillis();
+        calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
+        long startOfWeek = calendar.getTimeInMillis();
+        // Set the end date of the week
+        calendar.add(Calendar.DAY_OF_WEEK, 6);
+        long endOfWeek = calendar.getTimeInMillis();
         MaterialDatePicker<Long> datePicker = MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Select date")
                 .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                 .setCalendarConstraints(new CalendarConstraints.Builder()
                         .setValidator(DateValidatorPointForward.now()) // Restrict to future dates only
+                        .setStart(today) // Start from today
+                        .setEnd(endOfWeek)
                         .build())
                 .build();
         datePicker.addOnPositiveButtonClickListener(selection -> {
+            MealsPlan mealsPlan = new MealsPlan();
+            mealsPlan.copyMeal(meal);
             // Convert milliseconds to a Date object
             Date selectedDate = new Date(selection);
-
             // Format the selected date
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             String formattedDate = sdf.format(selectedDate);
-
             // Get the day of the week
             SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE", Locale.getDefault());
             String dayOfWeek = dayFormat.format(selectedDate);
-            //
             dateWithDayOfWeek = dayOfWeek  + " (" + formattedDate + ")";
+            mealsPlan.setDateWithDayOfWeek(dateWithDayOfWeek);
+            presenter.addToPlannedMeal(mealsPlan);
             Log.i(TAG, "showCalender: "+dateWithDayOfWeek);
         });
         datePicker.show(getSupportFragmentManager(),"tag");
     }
+
 }

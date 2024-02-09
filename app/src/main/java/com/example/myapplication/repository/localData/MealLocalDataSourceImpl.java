@@ -5,9 +5,11 @@ import android.database.sqlite.SQLiteConstraintException;
 import android.util.Log;
 
 import com.example.myapplication.homeActivity.model.mealData.MealsItem;
+import com.example.myapplication.homeActivity.planMealFragment.model.MealsPlan;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -17,6 +19,7 @@ public class MealLocalDataSourceImpl implements MealLocalDataSource {
     private MealDao dao;
     private static MealLocalDataSourceImpl localDataSource = null;
     private Flowable<List<MealsItem>> storedMeals;
+   // private Flowable<List<MealsPlan>> plannedMeals;
     private MealLocalDataSourceImpl(Context context){
         AppDataBase db = AppDataBase.getInstance(context);
         dao = db.getMealDao();
@@ -67,5 +70,36 @@ public class MealLocalDataSourceImpl implements MealLocalDataSource {
         return dao.getMealId(idMeal).subscribeOn(Schedulers.io()).contains(idMeal);
 //        return Single.fromCallable(() -> dao.getMealId(idMeal) != null)
 //                .subscribeOn(Schedulers.io()).contains(idMeal);
+    }
+
+    @Override
+    public Flowable<List<MealsPlan>> getAllPlannedMeal(String day) {
+        return dao.getAllPlannedMeal(day)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public void addPlannedMeal(MealsPlan mealsPlan) {
+        new Thread(()->{
+            try{
+                dao.insertPlannedMeal(mealsPlan);
+                Log.i(TAG, "addPlannedMeal: success meal id" + mealsPlan.getIdMeal());
+            }catch (SQLiteConstraintException e){
+                Log.i(TAG, "addPlannedMeal: failed ");
+            }
+        }).start();
+    }
+
+    @Override
+    public void deletePlannedMeal(MealsPlan mealsPlan) {
+        new Thread(()->{
+            try{
+                dao.deletePlannedMeal(mealsPlan);
+                Log.i(TAG, "deletePlannedMeal: success meal id" + mealsPlan.getIdMeal());
+            }catch (SQLiteConstraintException e){
+                Log.i(TAG, "deletePlannedMeal: failed ");
+            }
+        }).start();
     }
 }

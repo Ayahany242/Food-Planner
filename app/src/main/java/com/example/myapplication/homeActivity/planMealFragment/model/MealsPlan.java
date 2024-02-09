@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.example.myapplication.homeActivity.model.mealData.MealsItem;
+
 @Entity(tableName = "mealsPlanTable" ,primaryKeys = {"idMeal","dateWithDayOfWeek"})
 public class MealsPlan {
 	@NonNull
@@ -554,5 +556,61 @@ public class MealsPlan {
 			",strMeasure14 = '" + strMeasure14 + '\'' + 
 			",strMeasure15 = '" + strMeasure15 + '\'' + 
 			"}";
+		}
+		public void copyMeal(MealsItem mealsItem) {
+
+			this.strImageSource = mealsItem.getStrImageSource();
+			this.strIngredient10 = mealsItem.getStrIngredient10();
+			this.strIngredient12 = mealsItem.getStrIngredient12();
+			this.strIngredient11 = mealsItem.getStrIngredient11();
+			this.strIngredient14 = mealsItem.getStrIngredient14();
+			this.strCategory = mealsItem.getStrCategory();
+			this.strIngredient13 = mealsItem.getStrIngredient13();
+			this.strIngredient16 = mealsItem.getStrIngredient16();
+			this.strIngredient15 = mealsItem.getStrIngredient15();
+			this.strIngredient18 = mealsItem.getStrIngredient18();
+			this.strIngredient17 = mealsItem.getStrIngredient17();
+			this.strArea = mealsItem.getStrArea();
+			this.strCreativeCommonsConfirmed = mealsItem.getStrCreativeCommonsConfirmed();
+			this.strIngredient19 = mealsItem.getStrIngredient19();
+			this.strTags = mealsItem.getStrTags();
+			this.idMeal = mealsItem.getIdMeal();
+			this.strInstructions = mealsItem.getStrInstructions();
+			this.strIngredient1 = mealsItem.getStrIngredient1();
+			this.strIngredient3 = mealsItem.getStrIngredient3();
+			this.strIngredient2 = mealsItem.getStrIngredient2();
+			this.strIngredient20 = mealsItem.getStrIngredient20();
+			this.strIngredient5 = mealsItem.getStrIngredient5();
+			this.strIngredient4 = mealsItem.getStrIngredient4();
+			this.strIngredient7 = mealsItem.getStrIngredient7();
+			this.strIngredient6 = mealsItem.getStrIngredient6();
+			this.strIngredient9 = mealsItem.getStrIngredient9();
+			this.strIngredient8 = mealsItem.getStrIngredient8();
+			this.strMealThumb = mealsItem.getStrMealThumb();
+			this.strMeasure20 = mealsItem.getStrMeasure20();
+			this.strYoutube = mealsItem.getStrYoutube();
+			this.strMeal = mealsItem.getStrMeal();
+			this.strMeasure12 = mealsItem.getStrMeasure12();
+			this.strMeasure13 = mealsItem.getStrMeasure13();
+			this.strMeasure10 = mealsItem.getStrMeasure10();
+			this.strMeasure11 = mealsItem.getStrMeasure11();
+			this.dateModified = mealsItem.getDateModified();
+			this.strDrinkAlternate = mealsItem.getStrDrinkAlternate();
+			this.strSource = mealsItem.getStrSource();
+			this.strMeasure9 = mealsItem.getStrMeasure9();
+			this.strMeasure7 = mealsItem.getStrMeasure7();
+			this.strMeasure8 = mealsItem.getStrMeasure8();
+			this.strMeasure5 = mealsItem.getStrMeasure5();
+			this.strMeasure6 = mealsItem.getStrMeasure6();
+			this.strMeasure3 = mealsItem.getStrMeasure3();
+			this.strMeasure4 = mealsItem.getStrMeasure4();
+			this.strMeasure1 = mealsItem.getStrMeasure1();
+			this.strMeasure18 = mealsItem.getStrMeasure18();
+			this.strMeasure2 = mealsItem.getStrMeasure2();
+			this.strMeasure19 = mealsItem.getStrMeasure19();
+			this.strMeasure16 = mealsItem.getStrMeasure16();
+			this.strMeasure17 = mealsItem.getStrMeasure17();
+			this.strMeasure14 = mealsItem.getStrMeasure14();
+			this.strMeasure15 = mealsItem.getStrMeasure15();
 		}
 }

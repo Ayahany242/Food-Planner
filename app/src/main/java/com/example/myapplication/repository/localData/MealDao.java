@@ -24,6 +24,10 @@ public interface MealDao {
     void insertFavoriteMeal(MealsItem meal);
     @Delete
     void deleteMealFromFavorite(MealsItem meal);
-
-
+    @Query("SELECT * FROM MEALSPLANTABLE WHERE dateWithDayOfWeek =:day")
+    Flowable<List<MealsPlan>> getAllPlannedMeal(String day);
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    public void insertPlannedMeal(MealsPlan mealsPlan);
+    @Delete
+    public void deletePlannedMeal(MealsPlan mealsPlan);
 }

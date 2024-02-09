@@ -3,6 +3,7 @@ package com.example.myapplication.repository;
 import android.util.Log;
 
 import com.example.myapplication.homeActivity.model.mealData.MealsItem;
+import com.example.myapplication.homeActivity.planMealFragment.model.MealsPlan;
 import com.example.myapplication.repository.localData.MealLocalDataSource;
 import com.example.myapplication.repository.network.NetworkCallback;
 import com.example.myapplication.repository.network.RemoteDataSource;
@@ -84,6 +85,22 @@ public class RepositoryImpl implements RepositoryView{
         Log.i(TAG, "getAllFavoriteMeals: repo");
         return localDataSource.getAllFavoriteMeal();
     }
+
+    @Override
+    public Flowable<List<MealsPlan>> getAllPlannedMeal(String day) {
+        return localDataSource.getAllPlannedMeal(day);
+    }
+
+    @Override
+    public void addPlannedMeal(MealsPlan mealsPlan) {
+        localDataSource.addPlannedMeal(mealsPlan);
+    }
+
+    @Override
+    public void deletePlannedMeal(MealsPlan mealsPlan) {
+        localDataSource.deletePlannedMeal(mealsPlan);
+    }
+
     @Override
     public void deleteMealFromFavorite(MealsItem item) {
         localDataSource.deleteFromFavoriteMeal(item);

@@ -1,16 +1,19 @@
 package com.example.myapplication.mealDetails.presenter;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.myapplication.Utility.UtilityFavoriteBtn;
 import com.example.myapplication.homeActivity.model.mealData.MealsItem;
 import com.example.myapplication.homeActivity.allMealsFragment.model.MealsData;
+import com.example.myapplication.homeActivity.planMealFragment.model.MealsPlan;
 import com.example.myapplication.repository.RepositoryView;
 import com.example.myapplication.repository.network.NetworkCallback;
 
 import java.util.List;
 
 public class MealDetailPresenter implements MealDetailContract.Presenter, NetworkCallback.MealsDetailsRequest {
+    private static final String TAG ="details";
     private MealDetailContract.View view;
     private RepositoryView repositoryView;
     private UtilityFavoriteBtn utilityFavoriteBtn;
@@ -23,6 +26,13 @@ public class MealDetailPresenter implements MealDetailContract.Presenter, Networ
     public void getMealDetails(String mealId) {
         repositoryView.makeNetworkCallMealDetails(this,mealId);
     }
+
+    @Override
+    public void addToPlannedMeal(MealsPlan mealsPlan) {
+        repositoryView.addPlannedMeal(mealsPlan);
+        Log.i(TAG, "addToPlannedMeal:MealDetailPresenter  "+mealsPlan.getIdMeal() +"...."+mealsPlan.getDateWithDayOfWeek());
+    }
+
     @Override
     public void onSuccessMealDetailsResponse(MealsItem mealsItem) {
         view.showMeal(mealsItem);

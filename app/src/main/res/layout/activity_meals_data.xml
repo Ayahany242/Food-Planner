@@ -213,7 +213,7 @@
             android:background="@drawable/circle_btn_bg"
             android:baselineAlignBottom="false"
             android:clickable="true"
-            android:src="@drawable/favorite_fill_ic"
+            android:src="@drawable/favorite_ic"
             app:fabSize="normal"
             app:layout_constraintEnd_toStartOf="@+id/calenderBtn"
             app:layout_constraintStart_toStartOf="parent"

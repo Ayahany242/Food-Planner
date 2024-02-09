@@ -1,6 +1,7 @@
 package com.example.myapplication.repository;
 
 import com.example.myapplication.homeActivity.model.mealData.MealsItem;
+import com.example.myapplication.homeActivity.planMealFragment.model.MealsPlan;
 import com.example.myapplication.repository.network.NetworkCallback;
 
 import java.util.List;
@@ -23,5 +24,8 @@ public interface RepositoryView {
     public void addMealToFavorite(MealsItem item);
     public Single<Boolean> isMealExists(String idMeal);
     public Flowable<List<MealsItem>> getAllFavoriteMeal();
+    public Flowable<List<MealsPlan>> getAllPlannedMeal(String day);
+    public void addPlannedMeal(MealsPlan mealsPlan);
+    public void deletePlannedMeal(MealsPlan mealsPlan);
 
 }
