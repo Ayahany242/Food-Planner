@@ -23,7 +23,6 @@ public class MealDetailPresenter implements MealDetailContract.Presenter, Networ
     public MealDetailPresenter(MealDetailContract.View view, RepositoryView repositoryView, Context context){
         this.view = view;
         this.repositoryView = repositoryView;
-        realTimeDB =new RealTimeImplementation();
         utilityFavoriteBtn = new UtilityFavoriteBtn(context);
     }
     @Override
@@ -33,6 +32,7 @@ public class MealDetailPresenter implements MealDetailContract.Presenter, Networ
 
     @Override
     public void addToPlannedMeal(MealsPlan mealsPlan) {
+        realTimeDB =new RealTimeImplementation();
         repositoryView.addPlannedMeal(mealsPlan);
         realTimeDB.addPlan(mealsPlan);
         Log.i(TAG, "addToPlannedMeal:MealDetailPresenter  "+mealsPlan.getIdMeal() +"...."+mealsPlan.getDateWithDayOfWeek());

@@ -7,10 +7,13 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -20,6 +23,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.myapplication.HorizontalItemDecoration;
 import com.example.myapplication.R;
+import com.example.myapplication.authentication.view.LoginFragment;
 import com.example.myapplication.homeActivity.planMealFragment.model.MealsPlan;
 import com.example.myapplication.homeActivity.searchFragment.searchIngredients.view.IngredientAdapterRV;
 import com.example.myapplication.homeActivity.view.HomeActivity;
@@ -67,7 +71,6 @@ public class MealsDetailsActivity extends AppCompatActivity implements MealDetai
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meals_data);
-
         Intent intent = getIntent();
         String mealId = intent.getStringExtra(HomeActivity.SELECTED_MEAL);
         Log.i(TAG, "onCreate: MealsDataActivity "+mealId);
@@ -78,13 +81,12 @@ public class MealsDetailsActivity extends AppCompatActivity implements MealDetai
         presenter.isMealExists(mealId);
         favoriteBtn.setOnClickListener((v)-> {
             if (isFavorite){
-                presenter.deleteFavoriteMeal(meal);
-                favoriteBtn.setImageResource(R.drawable.favorite_ic);
+                alertShowAdd();
                 Log.i(TAG, "onClick: deleteMealFromFavorite isFavorite ");
             }else {
-                presenter.addFavoriteMeal(meal);
+                alertShowDelete();
                 Log.i(TAG, "onClick: addMealToFavorite isFavorite "+ isFavorite +" randomMeal.getIdMeal() ");
-                favoriteBtn.setImageResource(R.drawable.favorite_fill_ic);
+
             }
             isFavorite = !isFavorite;
             Log.i(TAG, "after clicked onClick: isFavorite "+ isFavorite);
@@ -94,6 +96,10 @@ public class MealsDetailsActivity extends AppCompatActivity implements MealDetai
             showCalender();
             Log.i(TAG, "showCalender: "+dateWithDayOfWeek);
         });
+        if(!LoginFragment.isSingedIn){
+            favoriteBtn.setVisibility(View.GONE);
+            calenderBtn.setVisibility(View.GONE);
+        }
     }
     private void initUI(){
         layout = findViewById(R.id.mealDetailsLayout);
@@ -116,8 +122,6 @@ public class MealsDetailsActivity extends AppCompatActivity implements MealDetai
         recyclerView.addItemDecoration(new HorizontalItemDecoration(spacingInPixels));
         recyclerView.setAdapter(adapter);
         backBtn = findViewById(R.id.backBtnMealDetails);
-
-
     }
 
     @Override
@@ -143,7 +147,8 @@ public class MealsDetailsActivity extends AppCompatActivity implements MealDetai
             @Override
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {
                 super.onReady(youTubePlayer);
-                youTubePlayer.loadVideo(videoId, 0);
+               // youTubePlayer.loadVideo(videoId, 0);
+                youTubePlayer.cueVideo(videoId,0);
             }
             /*@Override
             public void onStateChange(@NonNull YouTubePlayer youTubePlayer, @NonNull PlayerConstants.PlayerState state) {
@@ -200,12 +205,15 @@ public class MealsDetailsActivity extends AppCompatActivity implements MealDetai
             favoriteBtn.setImageResource(R.drawable.favorite_ic);
         }
     }
-
+    @Override
+    protected void onPause() {
+        super.onPause();
+        youTubePlayerView.release();
+    }
     @Override
     public void addToPlannedMeal(MealsPlan mealsPlan) {
 
     }
-
     private void showCalender(){
         Calendar calendar = Calendar.getInstance();
         long today = calendar.getTimeInMillis();
@@ -241,5 +249,28 @@ public class MealsDetailsActivity extends AppCompatActivity implements MealDetai
         });
         datePicker.show(getSupportFragmentManager(),"tag");
     }
-
+    private void alertShowDelete(){
+        new AlertDialog.Builder(MealsDetailsActivity.this)
+                .setTitle("Delete")
+                .setMessage("Do you want to delete the meal from favourite?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        presenter.deleteFavoriteMeal(meal);
+                        favoriteBtn.setImageResource(R.drawable.favorite_ic);
+                    }
+                }).setNegativeButton("No",null).show();
+    }
+    private void alertShowAdd(){
+        new AlertDialog.Builder(MealsDetailsActivity.this)
+                .setTitle("Add")
+                .setMessage("Do you want to add the meal to the favourite?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        presenter.addFavoriteMeal(meal);
+                        favoriteBtn.setImageResource(R.drawable.favorite_fill_ic);
+                    }
+                }).setNegativeButton("No",null).show();
+    }
 }

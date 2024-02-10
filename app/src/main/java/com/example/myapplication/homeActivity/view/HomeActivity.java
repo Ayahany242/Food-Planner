@@ -77,7 +77,6 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityCommu
         NavController navController = Navigation.findNavController(this,R.id.nav_host_fragment);
         navController.navigate(R.id.allMealsFragment,bundle);
     }
-
     @Override
     public void goToSearchResult(int destination) {
         NavController navController = Navigation.findNavController(this,R.id.nav_host_fragment);

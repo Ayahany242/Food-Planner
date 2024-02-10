@@ -1,6 +1,8 @@
 package com.example.myapplication.homeActivity.favoriteMealsFragment.view;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -108,6 +110,17 @@ public class FavoriteMealsFragment extends Fragment implements FavoriteMealsCont
 
     @Override
     public void onFavoriteBtnListener(MealsItem item) {
-        deleteMealFromFavorite(item);
+        alertShowAdd(item);
+    }
+    private void alertShowAdd(MealsItem item){
+        new AlertDialog.Builder(mainCommunication.getContext())
+                .setTitle("Delete")
+                .setMessage("Do you want to delete the meal from favourite?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        deleteMealFromFavorite(item);
+                    }
+                }).setNegativeButton("No",null).show();
     }
 }

@@ -109,6 +109,7 @@ public class LoginFragment extends Fragment implements AuthContract.View{
     }
     @Override
     public void userFounded() {
+        isSingedIn = true;
        mainCommunication.navOnSuccess();
     }
 

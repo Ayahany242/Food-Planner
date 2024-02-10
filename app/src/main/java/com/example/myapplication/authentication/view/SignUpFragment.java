@@ -136,6 +136,7 @@ public class SignUpFragment extends Fragment implements AuthContract.View {
 
     @Override
     public void userFounded() {
+        LoginFragment.isSingedIn = true;
         mainCommunication.navOnGuest();
     }
 

@@ -1,7 +1,9 @@
 package com.example.myapplication.homeActivity.homeScreen.homeFragment;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -25,11 +27,11 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.myapplication.HorizontalItemDecoration;
 import com.example.myapplication.R;
+import com.example.myapplication.authentication.view.LoginFragment;
 import com.example.myapplication.homeActivity.model.allCategory.CategoriesItem;
 import com.example.myapplication.homeActivity.model.mealData.MealsItem;
 import com.example.myapplication.homeActivity.homeScreen.presenter.HomeContract;
 import com.example.myapplication.homeActivity.homeScreen.presenter.HomePresenter;
-import com.example.myapplication.homeActivity.searchFragment.seachCountries.view.CountryRVAdapter;
 import com.example.myapplication.homeActivity.view.HomeActivityCommunicator;
 import com.example.myapplication.repository.RepositoryImpl;
 import com.example.myapplication.repository.localData.MealLocalDataSourceImpl;
@@ -104,15 +106,20 @@ public class MealsHomeFragment extends Fragment implements HomeContract.View, on
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initUI(view);
+        if(!LoginFragment.isSingedIn){
+            favoriteBtn.setVisibility(View.GONE);
+        }
         favoriteBtn.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View v) {
                    if (isFavorite) {
-                       presenterView.deleteFavoriteMeal(randomMeal);
+                       alertShowDelete();
+                      //presenterView.deleteFavoriteMeal(randomMeal);
                        favoriteBtn.setImageResource(R.drawable.favorite_ic);
                        Log.i(TAG, "onClick: deleteMealFromFavorite isFavorite ");
                    } else {
-                       presenterView.addFavoriteMeal(randomMeal);
+                      // presenterView.addFavoriteMeal(randomMeal);
+                       alertShowAdd();
                        Log.i(TAG, "onClick: addMealToFavorite isFavorite " + isFavorite + " randomMeal.getIdMeal() ");
                        favoriteBtn.setImageResource(R.drawable.favorite_fill_ic);
                    }
@@ -180,5 +187,27 @@ public class MealsHomeFragment extends Fragment implements HomeContract.View, on
         } else {
             favoriteBtn.setImageResource(R.drawable.favorite_ic);
         }
+    }
+    private void alertShowDelete(){
+        new AlertDialog.Builder(mainCommunication.getContext())
+                .setTitle("Delete")
+                .setMessage("Do you want to delete the meal from favourite?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        presenterView.deleteFavoriteMeal(randomMeal);
+                    }
+                }).setNegativeButton("No",null).show();
+    }
+    private void alertShowAdd(){
+        new AlertDialog.Builder(mainCommunication.getContext())
+                .setTitle("Add")
+                .setMessage("Do you want to add the meal to the favourite?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        presenterView.addFavoriteMeal(randomMeal);
+                    }
+                }).setNegativeButton("No",null).show();
     }
 }
