@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".mealDetails.view.MealsDetailsActivity"
+    android:id="@+id/mealDetailsLayout"
+    android:background="@color/gray">
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarMealDetail"
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_anchor="@+id/appBarMealDetail"
+            android:background="@drawable/arc_bg"
+            app:layout_anchorGravity="center"
+            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed" >
+            <ImageView
+                android:id="@+id/mealImageDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/girl_icon"
+                android:scaleType="centerCrop"
+                android:layout_gravity="center"
+                app:layout_collapseMode="parallax"/>
+            <ImageButton
+                android:id="@+id/backBtnMealDetails"
+                android:layout_width="48dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/back_btn_bg"
+                android:baselineAlignBottom="false"
+                android:src="@drawable/back_arrow"
+                android:textAlignment="textStart"
+                app:fabSize="normal"
+                tools:layout_editor_absoluteY="16dp" />
+
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/layout_shape"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="16dp">
+
+            <TextView
+                android:id="@+id/mealName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/regular_font"
+                android:padding="8dp"
+                android:text="MealName"
+                android:textAlignment="textStart"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:padding="8dp"
+                android:text="@string/category"
+                android:textAlignment="textStart"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@id/mealName"
+                app:layout_constraintTop_toBottomOf="@+id/mealName" />
+
+            <TextView
+                android:id="@+id/mealCategoryDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:padding="8dp"
+                android:text="@string/category"
+                android:textAlignment="textStart"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView6"
+                app:layout_constraintEnd_toEndOf="@id/mealName"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/textView6"
+                app:layout_constraintTop_toBottomOf="@+id/mealName" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:padding="8dp"
+                android:drawableStart="@drawable/location"
+                android:textAlignment="textStart"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/textView6"
+                app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+            <TextView
+                android:id="@+id/mealAreaDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="8dp"
+                android:padding="8dp"
+                android:text="@string/category"
+                android:textAlignment="textStart"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView5"
+                app:layout_constraintStart_toEndOf="@+id/textView5"
+                app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+            <TextView
+                android:id="@+id/ingredients"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:padding="8dp"
+                android:text="@string/ingredients"
+                android:textAlignment="textStart"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/mealName"
+                app:layout_constraintTop_toBottomOf="@+id/textView5" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/ingredientsMealDetail"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                app:layout_constraintStart_toStartOf="@+id/ingredients"
+                app:layout_constraintTop_toBottomOf="@+id/ingredients" />
+            <TextView
+                android:id="@+id/steps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:padding="8dp"
+                android:text="@string/steps"
+                android:textAlignment="textStart"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/ingredients"
+                app:layout_constraintTop_toBottomOf="@+id/ingredientsMealDetail" />
+
+            <TextView
+                android:id="@+id/stepsTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:padding="8dp"
+                android:text="@string/category"
+                android:textAlignment="textStart"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/steps"
+                app:layout_constraintTop_toBottomOf="@+id/steps" />
+
+            <TextView
+                android:id="@+id/youtubeTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:padding="8dp"
+                android:text="@string/youtube"
+                android:textAlignment="textStart"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/steps"
+                app:layout_constraintTop_toBottomOf="@+id/stepsTv" />
+
+            <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+                android:id="@+id/videoView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:autoPlay="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/youtubeTv" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        app:fabSize="normal"
+        android:layout_margin="8dp"
+        android:padding="8dp"
+        app:layout_anchor="@id/appBarMealDetail"
+        app:layout_anchorGravity="bottom|end">
+
+        <ImageButton
+
+            android:id="@+id/favBtnIcon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_margin="8dp"
+            android:background="@drawable/circle_btn_bg"
+            android:baselineAlignBottom="false"
+            android:clickable="true"
+            android:src="@drawable/favorite_ic"
+            app:fabSize="normal"
+            app:layout_constraintEnd_toStartOf="@+id/calenderBtn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/calenderBtn"
+            android:layout_width="49dp"
+            android:layout_height="50dp"
+            android:background="@drawable/circle_btn_bg"
+            android:baselineAlignBottom="false"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/calendar"
+            app:fabSize="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/favBtnIcon"
+            app:layout_constraintTop_toTopOf="@+id/favBtnIcon" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

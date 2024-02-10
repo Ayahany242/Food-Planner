@@ -3,5 +3,11 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="red">#E81304</color>
-    <color name="gray">#BAB7B7</color>
+    <color name="gray">#ECE8E8</color>
+    <color name="primary">#FFC342</color>
+    <color name="sec">#FFA42F</color>
+    <color name="icon">#8B540C</color>
+    <color name="backgroundIc">#2EFFA42F</color>
+    <color name="text">#2D2861</color>
+    <color name="pink">#CA006F</color>
 </resources>

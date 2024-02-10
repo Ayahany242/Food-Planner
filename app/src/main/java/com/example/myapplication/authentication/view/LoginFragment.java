@@ -1,31 +1,33 @@
 package com.example.myapplication.authentication.view;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.authentication.presenter.AuthContract;
 import com.example.myapplication.authentication.presenter.AuthPresenter;
-import com.example.myapplication.homeActivity.view.HomeActivity;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginFragment extends Fragment implements AuthContract.View{
     private MainCommunication mainCommunication;
-    private EditText emailEditTxt;
-    private EditText passwordEditTxt;
-    private Button loginBtn;
-    private Button signUpBtn;
+    private TextInputEditText emailEditTxt;
+    private TextInputEditText passwordEditTxt;
+    private CardView loginBtn;
+    private ProgressBar progressBar;
+    private TextView signUpBtn;
     private AuthContract.Presenter presenter;
     private static final String TAG = "Login";
 
@@ -59,12 +61,28 @@ public class LoginFragment extends Fragment implements AuthContract.View{
             public void onClick(View v) {
                 String email = emailEditTxt.getText().toString();
                 String password = passwordEditTxt.getText().toString();
-                if(mainCommunication.isInputValid(email)&& mainCommunication.isInputValid(password)) {
-                    presenter.signIn(email,password);
+                progressBar.setVisibility(View.VISIBLE);
+                if(!mainCommunication.isInputValid(email))
+                {
+                    mainCommunication.showToast("Please enter your email");
+                    emailEditTxt.setError("Email is required");
+                    emailEditTxt.requestFocus();
+                    progressBar.setVisibility(View.GONE);
+
+                }else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                    mainCommunication.showToast("Please re-enter your email");
+                    emailEditTxt.setError("valid email is required");
+                    emailEditTxt.requestFocus();
+                    progressBar.setVisibility(View.GONE);
                 }
-                else{
-                    mainCommunication.showToast("LogIn Button enter the data");
-                    Log.i(TAG, "onClick: failed true");
+                 else if (!mainCommunication.isInputValid(password)) {
+                    mainCommunication.showToast("Please enter valid password");
+                    passwordEditTxt.setError("password is required");
+                    progressBar.setVisibility(View.GONE);
+                    passwordEditTxt.requestFocus();
+                } else{
+                    presenter.signIn(email,password);
+                    Log.i(TAG, "onClick: true");
                 }
             }
         });
@@ -72,7 +90,9 @@ public class LoginFragment extends Fragment implements AuthContract.View{
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "onClick: login method to signUp");
-                mainCommunication.showSignUpFragment();
+                /*NavController navController = NavHostFragment.findNavController(navHost);
+                navController.navigate(R.id.signUpFragment);*/
+                mainCommunication.navigationBetweenAuth(R.id.signUpFragment);
             }
         });
         return view;
@@ -81,20 +101,24 @@ public class LoginFragment extends Fragment implements AuthContract.View{
         emailEditTxt = view.findViewById(R.id.emailLoginEditView);
         passwordEditTxt = view.findViewById(R.id.passwordLoginEditView);
         loginBtn= view.findViewById(R.id.loginBtn);
+        progressBar = view.findViewById(R.id.progressBarLogin);
         signUpBtn = view.findViewById(R.id.signUpBtn);
     }
     @Override
     public void userFounded() {
-        startActivity(new Intent(mainCommunication.getContext(), HomeActivity.class));
+       mainCommunication.navOnSuccess();
     }
 
     @Override
     public void onSuccessfully() {
-        startActivity(new Intent(mainCommunication.getContext(), HomeActivity.class));
+        mainCommunication.navOnSuccess();
+        progressBar.setVisibility(View.GONE);
+
     }
 
     @Override
     public void onFailure(String error) {
+        progressBar.setVisibility(View.GONE);
         mainCommunication.showToast(error);
     }
 }

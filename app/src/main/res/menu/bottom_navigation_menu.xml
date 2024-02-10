@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/page_1"
+        android:id="@+id/mealsHomeFragment"
         android:enabled="true"
         android:title="@string/home"
         android:icon="@drawable/home_ic20"/>
     <item
-        android:id="@+id/page_2"
+        android:id="@+id/favoriteMealsFragment"
         android:enabled="true"
         android:title="@string/favorites"
         android:icon="@drawable/favorite_ic20"/>
     <item
-        android:id="@+id/page_3"
+        android:id="@+id/planMealFragment"
         android:enabled="true"
-        android:title="@string/search"
-        android:icon="@drawable/search_ic20"/>
+        android:title="@string/planner"
+        android:icon="@drawable/calendar"/>
     <item
-        android:id="@+id/page_4"
+        android:id="@+id/settingFragment"
         android:enabled="true"
-        android:title="@string/profile"
-        android:icon="@drawable/account_ic20"/>
+        android:title="@string/setting"
+        android:icon="@drawable/setting_ic"/>
 </menu>

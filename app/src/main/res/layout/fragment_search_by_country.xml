@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/gray"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".homeActivity.searchFragment.seachCountries.view.SearchByCountryFragment">
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@drawable/app_bar_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <ImageButton
+            android:id="@+id/backBtnCountry"
+            android:layout_width="48dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/back_btn_bg"
+            android:baselineAlignBottom="false"
+            android:src="@drawable/back_arrow"
+            android:textAlignment="textStart"
+            app:fabSize="normal"
+            tools:layout_editor_absoluteY="16dp" />
+        <EditText
+            android:id="@+id/search_bar_country"
+            android:layout_width="360dp"
+            android:layout_height="56dp"
+            android:drawableStart="@drawable/search_ic20"
+            android:paddingStart="16dp"
+            android:hint="@string/searchCountry"
+            android:drawablePadding="8dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/search_style"
+            app:layout_anchor="@+id/materialToolbar" />
+    </FrameLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/resultCountriesSearch"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/layout_shape"
+        android:padding="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout"
+        tools:layout_editor_absoluteX="0dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

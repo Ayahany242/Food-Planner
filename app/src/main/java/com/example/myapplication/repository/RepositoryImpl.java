@@ -2,19 +2,16 @@ package com.example.myapplication.repository;
 
 import android.util.Log;
 
-import com.example.myapplication.homeActivity.model.randomModel.MealsItem;
+import com.example.myapplication.homeActivity.model.mealData.MealsItem;
+import com.example.myapplication.homeActivity.planMealFragment.model.MealsPlan;
 import com.example.myapplication.repository.localData.MealLocalDataSource;
 import com.example.myapplication.repository.network.NetworkCallback;
 import com.example.myapplication.repository.network.RemoteDataSource;
 
-import org.jetbrains.annotations.Async;
-
-import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
-import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class RepositoryImpl implements RepositoryView{
     private final RemoteDataSource remoteDataSource;
@@ -31,24 +28,77 @@ public class RepositoryImpl implements RepositoryView{
         return repository;
     }
     @Override
-    public void makeNetworkCallForRandomMeal(NetworkCallback callbackRandomMeal) {
+    public void makeNetworkCallForRandomMeal(NetworkCallback.HomeRequestData  callbackRandomMeal) {
         remoteDataSource.makeNetworkCallForRandomMeal(callbackRandomMeal);
     }
-
     @Override
-    public void makeNetworkCallForAllCategory(NetworkCallback callback) {
+    public void makeNetworkCallForAllCategory(NetworkCallback.HomeRequestData  callback) {
         remoteDataSource.makeNetworkCallForAllCategory(callback);
     }
 
     @Override
-    public void makeNetworkCallForAllCountries(NetworkCallback callback) {
+    public void makeNetworkCallForSearchByName(NetworkCallback.ResultSearchByName callback, String text) {
+        remoteDataSource.makeNetworkCallForSearchByName(callback,text);
+    }
+
+  /*   @Override
+    public void makeNetworkCallForSearch(NetworkCallback.ResultSearchByName callback, String text) {
+       // remoteDataSource.makeNetworkCallForSearchByName(callback, text);
+    }
+
+   @Override
+    public void makeNetworkCallForAllCountries(NetworkCallback.HomeRequestData  callback) {
+        remoteDataSource.makeNetworkCallForAllCountries(callback);
+    }*/
+
+    @Override
+    public void makeNetworkCallForAllCountries(NetworkCallback.SearchRequestData callback) {
         remoteDataSource.makeNetworkCallForAllCountries(callback);
     }
 
     @Override
-    public Single<List<MealsItem>> getAllFavoriteMeals() {
+    public void makeNetworkCallForAllIngredients(NetworkCallback.SearchRequestData callback) {
+        remoteDataSource.makeNetworkCallForAllIngredients(callback);
+    }
+
+    @Override
+    public void makeNetworkCallMealsDataInCategory(NetworkCallback.MealsDataRequest callback, String category) {
+        remoteDataSource.makeNetworkCallMealsDataInCategory(callback,category);
+    }
+
+    @Override
+    public void makeNetworkCallMealsDataInArea(NetworkCallback.MealsDataRequest callback, String area) {
+        remoteDataSource.makeNetworkCallMealsDataInArea(callback,area);
+    }
+
+    @Override
+    public void makeNetworkCallMealsDataInIngredient(NetworkCallback.MealsDataRequest callback, String ingredient) {
+        remoteDataSource.makeNetworkCallMealsDataInIngredient(callback,ingredient);
+    }
+
+    @Override
+    public void makeNetworkCallMealDetails(NetworkCallback.MealsDetailsRequest callback, String mealId) {
+        remoteDataSource.makeNetworkCallMealDetails(callback, mealId);
+    }
+    @Override
+    public Flowable<List<MealsItem>> getAllFavoriteMeal() {
         Log.i(TAG, "getAllFavoriteMeals: repo");
         return localDataSource.getAllFavoriteMeal();
+    }
+
+    @Override
+    public Flowable<List<MealsPlan>> getAllPlannedMeal(String day) {
+        return localDataSource.getAllPlannedMeal(day);
+    }
+
+    @Override
+    public void addPlannedMeal(MealsPlan mealsPlan) {
+        localDataSource.addPlannedMeal(mealsPlan);
+    }
+
+    @Override
+    public void deletePlannedMeal(MealsPlan mealsPlan) {
+        localDataSource.deletePlannedMeal(mealsPlan);
     }
 
     @Override
@@ -62,7 +112,6 @@ public class RepositoryImpl implements RepositoryView{
         localDataSource.addToFavoriteMeal(item);
         Log.i(TAG, "addMealToFavorite: repo ");
     }
-
     @Override
     public Single<Boolean> isMealExists(String idMeal) {
         return localDataSource.isMealExists(idMeal);

@@ -4,13 +4,19 @@ import android.util.Log;
 
 import com.example.myapplication.homeActivity.model.allCategory.AllCategoryResponse;
 import com.example.myapplication.homeActivity.model.allCountries.CountryListResponse;
-import com.example.myapplication.homeActivity.model.randomModel.RandomMealResponse;
+import com.example.myapplication.homeActivity.model.mealData.MealResponse;
+import com.example.myapplication.homeActivity.allMealsFragment.model.MealsListResponse;
+import com.example.myapplication.homeActivity.searchFragment.model.AllIngredientsResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import java.util.concurrent.TimeUnit;
+
+import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -24,6 +30,7 @@ public class RemoteDataSourceImp implements RemoteDataSource {
         Gson gson = new GsonBuilder().setLenient().create();
         retrofit = new Retrofit.Builder().baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .build();
         service = retrofit.create(API_Service.class);
     }
@@ -32,59 +39,116 @@ public class RemoteDataSourceImp implements RemoteDataSource {
             client = new RemoteDataSourceImp();
         return client;
     }
-
     @Override
-    public void makeNetworkCallForRandomMeal(NetworkCallback callbackRandomMeal) {
-        Call<RandomMealResponse> call = service.requestRandomMeal();
-        call.enqueue(new Callback<RandomMealResponse>() {
-            @Override
-            public void onResponse(Call<RandomMealResponse> call, Response<RandomMealResponse> response) {
-                Log.i(TAG, "onResponse: makeNetworkCallForRandomMeal meal size  "+response.body().getMeals().size());
-                callbackRandomMeal.onSuccessRandomResponse(response.body().getMeals().get(0));
-            }
-
-            @Override
-            public void onFailure(Call<RandomMealResponse> call, Throwable t) {
-                Log.i(TAG, "onFailure: makeNetworkCallForRandomMeal "+t.getMessage());
-                callbackRandomMeal.onFailureResult(t.getMessage());
-            }
-        });
+    public void makeNetworkCallForRandomMeal(NetworkCallback.HomeRequestData  callbackRandomMeal) {
+        Single<MealResponse> call = service.requestRandomMeal();
+                call.subscribeOn(Schedulers.io())
+                .map(response ->response.getMeals())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        item -> callbackRandomMeal.onSuccessRandomResponse(item.get(0)),
+                        throwable->callbackRandomMeal.onFailureResult(throwable.getMessage()));
+    }
+    @Override
+    public void makeNetworkCallForAllCategory(NetworkCallback.HomeRequestData  callback) {
+        Single<AllCategoryResponse> call = service.requestAllCategory();
+        call.subscribeOn(Schedulers.io())
+                .map(response ->response.getCategories())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        item -> callback.onSuccessAllCategoryResponse(item),
+                        throwable->callback.onFailureResult(throwable.getMessage()));
     }
 
     @Override
-    public void makeNetworkCallForAllCategory(NetworkCallback callback) {
-        Call<AllCategoryResponse> call = service.requestAllCategory();
-        call.enqueue(new Callback<AllCategoryResponse>() {
-            @Override
-            public void onResponse(Call<AllCategoryResponse> call, Response<AllCategoryResponse> response) {
-                Log.i(TAG, "onResponse: makeNetworkCallForAllCategory Category size Remote Date Source "+response.body().getCategories().size());
-                callback.onSuccessAllCategoryResponse(response.body().getCategories());
-            }
+    public void makeNetworkCallForSearchByName(NetworkCallback.ResultSearchByName callback, String text) {
+        Flowable<MealResponse> call = service.requestSearch(text);
+        call.subscribeOn(Schedulers.io())
+                .debounce(500, TimeUnit.MILLISECONDS)
+                .map(mealResponse -> mealResponse.getMeals())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        mealsItems -> callback.onSuccessMealSearchResponse(mealsItems),
+                        throwable -> callback.onFailureResult(throwable.getMessage()),
+                        ()-> Log.i(TAG, "makeNetworkCallForSearch: search complete ")
+                );
+    }
 
-            @Override
-            public void onFailure(Call<AllCategoryResponse> call, Throwable t) {
-                Log.i(TAG, "onFailure: makeNetworkCallForAllCategory Category size Remote Date Source "+t.getMessage());
-                callback.onFailureResult(t.getMessage());
-            }
-        });
+    /* @Override
+     public void makeNetworkCallForAllCountries(NetworkCallback.HomeRequestData  callback) {
+         Single<CountryListResponse> call = service.requestAllCountries();
+         call.subscribeOn(Schedulers.io())
+                 .map(response ->response.getCountries())
+                 .observeOn(AndroidSchedulers.mainThread())
+                 .subscribe(
+                         item -> callback.onSuccessAllCountryResponse(item),
+                         throwable->callback.onFailureResult(throwable.getMessage()));
+     }*/
+//search
+    @Override
+    public void makeNetworkCallForAllCountries(NetworkCallback.SearchRequestData callback) {
+        Single<CountryListResponse> call = service.requestAllCountries();
+        call.subscribeOn(Schedulers.io())
+                .map(response ->response.getCountries())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        item -> callback.onSuccessAllCountryResponse(item),
+                        throwable->callback.onFailureResult(throwable.getMessage()));
     }
 
     @Override
-    public void makeNetworkCallForAllCountries(NetworkCallback callback) {
-        Call<CountryListResponse> call = service.requestAllCountries();
-        call.enqueue(new Callback<CountryListResponse>() {
-            @Override
-            public void onResponse(Call<CountryListResponse> call, Response<CountryListResponse> response) {
-                callback.onSuccessAllCountryResponse(response.body().getCountries());
-                Log.i(TAG, "onResponse: makeNetworkCallForAllCountry Category size Remote Date Source "+response.body().getCountries().get(0));
-            }
-
-            @Override
-            public void onFailure(Call<CountryListResponse> call, Throwable t) {
-                Log.i(TAG, "onFailure: makeNetworkCallForAllCategory Category size Remote Date Source "+t.getMessage());
-                callback.onFailureResult(t.getMessage());
-            }
-        });
+    public void makeNetworkCallForAllIngredients(NetworkCallback.SearchRequestData callback) {
+       Single<AllIngredientsResponse> call = service.requestAllIngredients();
+       call.subscribeOn(Schedulers.io())
+               .map(response -> response.getMeals())
+               .observeOn(AndroidSchedulers.mainThread())
+               .subscribe(
+                       ingredientsData -> callback.onSuccessAllIngredientsResponse(ingredientsData),
+                       throwable -> callback.onFailureResult(throwable.getMessage())
+               );
     }
 
+    @Override
+    public void makeNetworkCallMealsDataInCategory(NetworkCallback.MealsDataRequest callback, String category) {
+        Single<MealsListResponse> call = service.requestAllMealsInCategory(category);
+        call.subscribeOn(Schedulers.io())
+                .map(response ->response.getMeals())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        meals -> callback.onSuccessMealsDataResponse(meals),
+                        throwable->callback.onFailureResult(throwable.getMessage()));
+    }
+
+    @Override
+    public void makeNetworkCallMealsDataInArea(NetworkCallback.MealsDataRequest callback, String area) {
+        Single<MealsListResponse> call = service.requestAllMealsInArea(area);
+        call.subscribeOn(Schedulers.io())
+                .map(response ->response.getMeals())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        meals -> callback.onSuccessMealsDataResponse(meals),
+                        throwable->callback.onFailureResult(throwable.getMessage()));
+    }
+
+    @Override
+    public void makeNetworkCallMealsDataInIngredient(NetworkCallback.MealsDataRequest callback, String ingredient) {
+        Single<MealsListResponse> call = service.requestFilterByIngredients(ingredient);
+        call.subscribeOn(Schedulers.io())
+                .map(response ->response.getMeals())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        meals -> callback.onSuccessMealsDataResponse(meals),
+                        throwable->callback.onFailureResult(throwable.getMessage()));
+    }
+
+    @Override
+    public void makeNetworkCallMealDetails(NetworkCallback.MealsDetailsRequest callback, String mealId) {
+        Single<MealResponse> call = service.requestMealDetail(mealId);
+        call.subscribeOn(Schedulers.io()).map(response -> response.getMeals())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        mealData->callback.onSuccessMealDetailsResponse(mealData.get(0)),
+                        throwable -> callback.onFailureResult(throwable.getMessage())
+                );
+    }
 }

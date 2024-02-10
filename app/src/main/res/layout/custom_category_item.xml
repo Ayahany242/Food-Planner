@@ -13,7 +13,7 @@
         app:layout_constraintGuide_begin="38dp" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/countryCardView"
+        android:id="@+id/categoryCardView"
         android:layout_width="310dp"
         android:layout_height="320dp"
         app:cardUseCompatPadding="true"
@@ -41,7 +41,7 @@
                 tools:src="@tools:sample/avatars" />
 
             <TextView
-                android:id="@+id/countryTV"
+                android:id="@+id/categoryMeal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -54,7 +54,7 @@
                 app:layout_constraintVertical_bias="0.255" />
 
             <TextView
-                android:id="@+id/descriptionTv"
+                android:id="@+id/mealAreaTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -68,8 +68,8 @@
                 app:layout_constraintBottom_toTopOf="@+id/guideline2"
                 app:layout_constraintEnd_toStartOf="@+id/guideline15"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/countryTV"
-                app:layout_constraintTop_toBottomOf="@+id/countryTV"
+                app:layout_constraintStart_toStartOf="@+id/categoryMeal"
+                app:layout_constraintTop_toBottomOf="@+id/categoryMeal"
                 app:layout_constraintVertical_bias="1.0" />
 
             <androidx.constraintlayout.widget.Guideline

@@ -1,5 +1,7 @@
 package com.example.myapplication.authentication.presenter;
 
+import com.example.myapplication.authentication.model.UserData;
+
 public interface AuthContract {
     interface View{
        public void userFounded();
@@ -9,6 +11,6 @@ public interface AuthContract {
     interface Presenter{
         public void foundCurrentUser();
         public void signIn(String email, String password);
-        public void signUp(String email, String password, String fullName);
+        public void signUp(UserData userData);
     }
 }

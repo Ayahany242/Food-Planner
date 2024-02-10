@@ -5,32 +5,37 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.authentication.model.UserData;
 import com.example.myapplication.authentication.presenter.AuthContract;
 import com.example.myapplication.authentication.presenter.AuthPresenter;
 import com.example.myapplication.homeActivity.view.HomeActivity;
+import com.google.android.material.textfield.TextInputEditText;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SignUpFragment extends Fragment implements AuthContract.View {
     private static final String TAG = "signIn";
     private MainCommunication mainCommunication;
-    private EditText fullNameEditTxt;
-    private EditText emailEditTxt;
-    private EditText passwordEditTxt;
-    private Button signUpBtn;
-    private Button googleBtn;
-    private Button loginBtn;
-    private ProgressBar progressBar;
+    private TextInputEditText fullNameEditTxt,emailEditTxt,passwordEditTxt,confirmPass;
+    private CardView signUpBtn;
+    private CircleImageView googleBtn;
+    private TextView loginBtn;
     private AuthContract.Presenter presenter;
+    private ProgressBar progressBar;
 
     public SignUpFragment() {
         // Required empty public constructor
@@ -47,11 +52,13 @@ public class SignUpFragment extends Fragment implements AuthContract.View {
     private void initUI(View view){
         fullNameEditTxt = view.findViewById(R.id.fullNameEditView);
         emailEditTxt = view.findViewById(R.id.emailEditView);
-        passwordEditTxt = view.findViewById(R.id.passwordEditView);
+        passwordEditTxt = view.findViewById(R.id.passwordSignUpEditView);
+        confirmPass = view.findViewById(R.id.confirmPassword);
         signUpBtn = view.findViewById(R.id.signUpBtn);
-        googleBtn = view.findViewById(R.id.ggogleBtn);
-        loginBtn = view.findViewById(R.id.loginBtn);
-        progressBar = view.findViewById(R.id.progressBar);
+        googleBtn = view.findViewById(R.id.googleBtn);
+        loginBtn = view.findViewById(R.id.signIn);
+        progressBar = view.findViewById(R.id.progressBarSignUp);
+
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,36 +79,74 @@ public class SignUpFragment extends Fragment implements AuthContract.View {
             String email = emailEditTxt.getText().toString();
             String password = passwordEditTxt.getText().toString();
             String fullName = fullNameEditTxt.getText().toString();
+            String confirmPassword = confirmPass.getText().toString();
+            progressBar.setVisibility(View.VISIBLE);
+            if(!mainCommunication.isInputValid(email))
+            {
+                mainCommunication.showToast("Please enter your email");
+                emailEditTxt.setError("Email is required");
+                emailEditTxt.requestFocus();
+                progressBar.setVisibility(View.GONE);
 
-            if (mainCommunication.isInputValid(email) && mainCommunication.isInputValid(password)&& mainCommunication.isInputValid(fullName)){
-                progressBar.setVisibility(View.VISIBLE);
-                Log.i(TAG, "onCreateView: filles is not empty ");
-                presenter.signUp(email,password,fullName);
-            }else{
-                mainCommunication.showToast("Enter the data ");
+            }else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                mainCommunication.showToast("Please re-enter your email");
+                emailEditTxt.setError("valid email is required");
+                emailEditTxt.requestFocus();
+                progressBar.setVisibility(View.GONE);
+            }
+            else if (!mainCommunication.isInputValid(password)) {
+                mainCommunication.showToast("Please enter valid password");
+                passwordEditTxt.setError("password is required");
+                progressBar.setVisibility(View.GONE);
+                passwordEditTxt.requestFocus();
+            } else if (password.length() < 8 ) {
+                mainCommunication.showToast("Please enter strong password");
+                passwordEditTxt.setError("password must be more than 8 words");
+                progressBar.setVisibility(View.GONE);
+                passwordEditTxt.requestFocus();
+            } else if (!confirmPassword.equals(password)) {
+                mainCommunication.showToast("Password must be matched");
+                confirmPass.setError("Password must be matched");
+                progressBar.setVisibility(View.GONE);
+                confirmPass.requestFocus();
+                confirmPass.clearComposingText();
+            } else if (!mainCommunication.isInputValid(confirmPassword)) {
+                mainCommunication.showToast("Please confirm your password");
+                confirmPass.setError("password confirmation is required");
+                progressBar.setVisibility(View.GONE);
+                confirmPass.requestFocus();
+            } else if (!mainCommunication.isInputValid(fullName)) {
+                mainCommunication.showToast("Please enter your full name");
+                confirmPass.setError("full name is required");
+                progressBar.setVisibility(View.GONE);
+                confirmPass.requestFocus();
+            } else{
+                UserData userData = new UserData(fullName,email,password);
+                presenter.signUp(userData);
             }
         });
         loginBtn.setOnClickListener((v)->
         {
             mainCommunication.showToast("go to login ");
-            mainCommunication.showLoginFragment();
+            mainCommunication.navigationBetweenAuth(R.id.loginFragment);
         });
         return view;
     }
 
     @Override
     public void userFounded() {
-        startActivity(new Intent(mainCommunication.getContext(), HomeActivity.class));
+        mainCommunication.navOnSuccess();
     }
 
     @Override
     public void onSuccessfully() {
-        startActivity(new Intent(mainCommunication.getContext(), HomeActivity.class));
+        mainCommunication.navOnSuccess();
         progressBar.setVisibility(View.GONE);
     }
 
     @Override
     public void onFailure(String error) {
+        progressBar.setVisibility(View.GONE);
         mainCommunication.showToast(error);
     }
 }

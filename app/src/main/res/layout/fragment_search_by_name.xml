@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".homeActivity.searchFragment.searchByName.view.SearchByNameFragment">
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+
+        android:background="@drawable/app_bar_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <ImageButton
+            android:id="@+id/backBtnByNameFragment"
+            android:layout_width="48dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/back_btn_bg"
+            android:baselineAlignBottom="false"
+            android:src="@drawable/back_arrow"
+            android:textAlignment="textStart"
+            app:fabSize="normal"
+            tools:layout_editor_absoluteY="16dp" />
+        <EditText
+            android:id="@+id/search_bar_name"
+            android:layout_width="360dp"
+            android:layout_height="56dp"
+            android:drawableStart="@drawable/search_ic20"
+            android:paddingStart="16dp"
+            android:hint="@string/searchbyname"
+            android:drawablePadding="8dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/search_style"
+            app:layout_anchor="@+id/materialToolbar" />
+    </FrameLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/resultSearchByName"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/layout_shape"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

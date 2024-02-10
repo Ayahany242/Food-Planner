@@ -5,102 +5,67 @@
     android:id="@+id/linearLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".homeActivity.view.allMealsFragment.AllMealsFragment">
+    android:background="@color/gray"
+    tools:context=".homeActivity.allMealsFragment.view.AllMealsFragment">
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@drawable/app_bar_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/backBtnAllMeals"
+            android:layout_width="48dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/back_btn_bg"
+            android:baselineAlignBottom="false"
+            android:src="@drawable/back_arrow"
+            android:textAlignment="textStart"
+            app:fabSize="normal"
+            tools:layout_editor_absoluteY="16dp" />
+
+        <TextView
+            android:id="@+id/containerTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="16dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="@string/category"
+            android:textSize="20dp"/>
+        <EditText
+            android:id="@+id/search_bar_AllMeal"
+            android:layout_width="360dp"
+            android:layout_height="56dp"
+            android:drawableStart="@drawable/search_ic20"
+            android:paddingStart="16dp"
+            android:hint="@string/search"
+            android:drawablePadding="8dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/search_style"
+            app:layout_anchor="@+id/materialToolbar" />
+
+    </FrameLayout>
 
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/countryCardView"
-        android:layout_width="312dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/allMealsRecycleView"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="64dp"
-        android:layout_weight="1.5"
-        android:elevation="16dp"
-        app:cardCornerRadius="22dp"
-        android:foregroundGravity="center_vertical"
+        android:background="@drawable/layout_shape"
+        android:foregroundGravity="center"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout">
 
-        app:cardUseCompatPadding="true"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="49dp">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <!-- Media -->
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/favouriteBtn"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/favorite_ic"
-                android:contentDescription="@string/favorite"
-                android:padding="8dp"
-                app:layout_constraintBottom_toBottomOf="@+id/descriptionTv"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/descriptionTv" />
-
-            <ImageView
-                android:id="@+id/randomImage"
-                android:layout_width="295dp"
-                android:layout_height="511dp"
-                android:scaleType="fitXY"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:src="@tools:sample/avatars" />
-
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:paddingStart="8dp"
-                android:text="Title"
-                android:textAppearance="?attr/textAppearanceHeadline6"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/randomImage" />
-
-            <TextView
-                android:id="@+id/description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:paddingStart="8dp"
-                android:text="@string/area"
-                android:textAppearance="?attr/textAppearanceBody2"
-                android:textColor="?android:attr/textColorSecondary"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:layout_editor_absoluteY="561dp" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:orientation="vertical"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintGuide_begin="328dp" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_begin="645dp" />
-
-            <TextView
-                android:id="@+id/descriptionTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingStart="8dp"
-                android:text="TextView"
-                app:layout_constraintBottom_toBottomOf="@+id/description"
-                app:layout_constraintStart_toEndOf="@+id/description"
-                app:layout_constraintTop_toTopOf="@+id/description" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    </androidx.recyclerview.widget.RecyclerView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
