@@ -30,4 +30,8 @@ public interface MealDao {
     public void insertPlannedMeal(MealsPlan mealsPlan);
     @Delete
     public void deletePlannedMeal(MealsPlan mealsPlan);
+    @Query("DELETE FROM MEALTABLE")
+    public void deleteAllMeals();
+    @Query("DELETE FROM mealsPlanTable")
+    public void deleteAllMealsPlan();
 }

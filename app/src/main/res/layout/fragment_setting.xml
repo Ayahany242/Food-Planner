@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray"
-    tools:context=".homeActivity.settingFragment.SettingFragment">
+    tools:context=".homeActivity.settingFragment.view.SettingFragment">
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"

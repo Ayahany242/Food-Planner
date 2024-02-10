@@ -33,7 +33,7 @@
     </fragment>
     <fragment
         android:id="@+id/settingFragment"
-        android:name="com.example.myapplication.homeActivity.settingFragment.SettingFragment"
+        android:name="com.example.myapplication.homeActivity.settingFragment.view.SettingFragment"
         android:label="@string/setting"
         tools:layout="@layout/fragment_setting" />
     <fragment

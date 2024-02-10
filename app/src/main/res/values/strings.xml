@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Cookie</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="email">Email</string>
@@ -44,6 +44,7 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="re_enter_the_password">Re-enter the password</string>
     <string name="have_an_account">Have an account?</string>
+    <string name="login_as_guest">Login as Guest</string>
 
     <string-array name="flags">
         <item>https://www.worldometers.info/img/flags/us-flag.gif</item>

@@ -9,6 +9,7 @@ import com.example.myapplication.homeActivity.allMealsFragment.model.MealsData;
 import com.example.myapplication.homeActivity.planMealFragment.model.MealsPlan;
 import com.example.myapplication.repository.RepositoryView;
 import com.example.myapplication.repository.network.NetworkCallback;
+import com.example.myapplication.repository.realTime.RealTimeImplementation;
 
 import java.util.List;
 
@@ -17,9 +18,12 @@ public class MealDetailPresenter implements MealDetailContract.Presenter, Networ
     private MealDetailContract.View view;
     private RepositoryView repositoryView;
     private UtilityFavoriteBtn utilityFavoriteBtn;
+    private RealTimeImplementation realTimeDB;
+
     public MealDetailPresenter(MealDetailContract.View view, RepositoryView repositoryView, Context context){
         this.view = view;
         this.repositoryView = repositoryView;
+        realTimeDB =new RealTimeImplementation();
         utilityFavoriteBtn = new UtilityFavoriteBtn(context);
     }
     @Override
@@ -30,6 +34,7 @@ public class MealDetailPresenter implements MealDetailContract.Presenter, Networ
     @Override
     public void addToPlannedMeal(MealsPlan mealsPlan) {
         repositoryView.addPlannedMeal(mealsPlan);
+        realTimeDB.addPlan(mealsPlan);
         Log.i(TAG, "addToPlannedMeal:MealDetailPresenter  "+mealsPlan.getIdMeal() +"...."+mealsPlan.getDateWithDayOfWeek());
     }
 
@@ -57,7 +62,6 @@ public class MealDetailPresenter implements MealDetailContract.Presenter, Networ
         utilityFavoriteBtn.isMealInFavorite(idMeal)
                 .subscribe(
                         exists -> {
-                            // Notify the view (activity) about the result
                             view.notifyMealExistence(exists);
                         },
                         Throwable::printStackTrace

@@ -25,7 +25,6 @@ import java.util.Objects;
 public class AuthenticationActivity extends AppCompatActivity implements MainCommunication{
     private final static String SCREEN = "screen";
     private NavController navController;
-
     private static final String TAG = "AuthenticationActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -57,12 +56,15 @@ public class AuthenticationActivity extends AppCompatActivity implements MainCom
         navController.navigate(Direction);
     }
 
-
     @Override
     public void navOnSuccess() {
         Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
+    }
+    @Override
+    public void navOnGuest() {
+        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
     }
 }

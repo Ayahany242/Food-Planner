@@ -33,7 +33,7 @@ public class SignUpFragment extends Fragment implements AuthContract.View {
     private TextInputEditText fullNameEditTxt,emailEditTxt,passwordEditTxt,confirmPass;
     private CardView signUpBtn;
     private CircleImageView googleBtn;
-    private TextView loginBtn;
+    private TextView loginBtn,guestMode;
     private AuthContract.Presenter presenter;
     private ProgressBar progressBar;
 
@@ -58,7 +58,7 @@ public class SignUpFragment extends Fragment implements AuthContract.View {
         googleBtn = view.findViewById(R.id.googleBtn);
         loginBtn = view.findViewById(R.id.signIn);
         progressBar = view.findViewById(R.id.progressBarSignUp);
-
+        guestMode = view.findViewById(R.id.guestMode);
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -125,6 +125,7 @@ public class SignUpFragment extends Fragment implements AuthContract.View {
                 presenter.signUp(userData);
             }
         });
+        guestMode.setOnClickListener((v)->mainCommunication.navOnSuccess());
         loginBtn.setOnClickListener((v)->
         {
             mainCommunication.showToast("go to login ");
@@ -135,11 +136,12 @@ public class SignUpFragment extends Fragment implements AuthContract.View {
 
     @Override
     public void userFounded() {
-        mainCommunication.navOnSuccess();
+        mainCommunication.navOnGuest();
     }
 
     @Override
     public void onSuccessfully() {
+      //  LoginFragment.isSingedIn = true;
         mainCommunication.navOnSuccess();
         progressBar.setVisibility(View.GONE);
     }

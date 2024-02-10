@@ -100,6 +100,15 @@ public class RepositoryImpl implements RepositoryView{
     public void deletePlannedMeal(MealsPlan mealsPlan) {
         localDataSource.deletePlannedMeal(mealsPlan);
     }
+    @Override
+    public void deleteAllMeals() {
+        localDataSource.deleteAllMeals();
+    }
+
+    @Override
+    public void deleteAllMealsPlan() {
+        localDataSource.deleteAllMealsPlan();
+    }
 
     @Override
     public void deleteMealFromFavorite(MealsItem item) {

@@ -138,13 +138,13 @@ public class MealsHomeFragment extends Fragment implements HomeContract.View, on
     public void showRandomMeal(MealsItem meal) {
         Log.i(TAG, "showRandomMeal: MealsHomeFragment "+meal.getStrCategory());
         setRandomMeal(meal);
-        mainCommunication.showToast(meal.getStrCategory());
+      //  mainCommunication.showToast(meal.getStrCategory());
     }
 
     @Override
     public void showAllCategory(List<CategoriesItem> categoriesItems) {
         Log.i(TAG, "showAllCategory: MealsHomeFragment "+categoriesItems.get(0).getStrCategoryDescription());
-        mainCommunication.showToast(categoriesItems.get(1).getStrCategoryDescription());
+      //  mainCommunication.showToast(categoriesItems.get(1).getStrCategoryDescription());
         categoryRVAdapter.setCategoriesItems(categoriesItems);
         categoryRVAdapter.notifyDataSetChanged();
     }
