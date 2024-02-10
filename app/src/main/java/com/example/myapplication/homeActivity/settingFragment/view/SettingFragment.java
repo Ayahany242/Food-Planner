@@ -1,4 +1,4 @@
-package com.example.myapplication.homeActivity.settingFragment;
+package com.example.myapplication.homeActivity.settingFragment.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,12 +15,19 @@ import android.view.ViewGroup;
 
 import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
+import com.example.myapplication.authentication.view.LoginFragment;
+import com.example.myapplication.homeActivity.settingFragment.presenter.SettingContract;
+import com.example.myapplication.homeActivity.settingFragment.presenter.SettingPresenter;
 import com.example.myapplication.homeActivity.view.HomeActivityCommunicator;
+import com.example.myapplication.repository.RepositoryImpl;
+import com.example.myapplication.repository.localData.MealLocalDataSourceImpl;
+import com.example.myapplication.repository.network.RemoteDataSourceImp;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class SettingFragment extends Fragment {
+public class SettingFragment extends Fragment implements SettingContract.View {
     private AppCompatButton signOutBtn;
     private HomeActivityCommunicator communicator;
+    private SettingContract.Presenter presenter;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,9 +52,16 @@ public class SettingFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         signOutBtn = view.findViewById(R.id.signOut);
+        presenter = new SettingPresenter(this, RepositoryImpl.getInstance(RemoteDataSourceImp.getInstance(), MealLocalDataSourceImpl.getInstance(communicator.getContext())),communicator.getContext());
         signOutBtn.setOnClickListener((v)-> {
+            presenter.deleteAllPlans();
             FirebaseAuth.getInstance().signOut();
+            LoginFragment.isSingedIn = false;
             startActivity(new Intent(communicator.getContext(), MainActivity.class));
         });
+    }
+    @Override
+    public void showOnError(String error) {
+
     }
 }

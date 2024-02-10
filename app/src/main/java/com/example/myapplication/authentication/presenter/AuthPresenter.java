@@ -1,11 +1,14 @@
 package com.example.myapplication.authentication.presenter;
 
+import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
 import com.example.myapplication.authentication.model.UserData;
+import com.example.myapplication.homeActivity.model.mealData.MealsItem;
+import com.example.myapplication.repository.realTime.RealTimeImplementation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,12 +28,17 @@ public class AuthPresenter implements AuthContract.Presenter{
     private FirebaseUser firebaseUser;
     private FirebaseFirestore firestore;
     private String userID;
+    private RealTimeImplementation realTimeDB;
+    private FirebaseDatabase database;
+    private DatabaseReference favReference;
+    private DatabaseReference planReference;
     private final String TAG = "tag";
 
     public AuthPresenter(AuthContract.View view){
         this.view = view;
         mAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
+
     }
     @Override
     public void foundCurrentUser() {
@@ -40,9 +48,12 @@ public class AuthPresenter implements AuthContract.Presenter{
         }
     }
     @Override
-    public void signIn(String email, String password) {
+    public void signIn(String email, String password, Context context) {
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task ->{
             if (task.isSuccessful()) {
+                realTimeDB = new RealTimeImplementation();
+                realTimeDB.getAllFavMeals(context);
+                realTimeDB.getAllPlanedMeals(context);
                 view.onSuccessfully();
             } else {
                 view.onFailure(task.getException().getMessage());
@@ -85,12 +96,18 @@ public class AuthPresenter implements AuthContract.Presenter{
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
                     view.onSuccessfully();
+
                     Log.i(TAG, "connectToDatabase: success "+userID);
                 }else{
                     view.onFailure("User Register failed. Please try again");
                 }
             }
         });
+
+    }
+
+    private void addMeal(MealsItem item)
+    {
 
     }
 }

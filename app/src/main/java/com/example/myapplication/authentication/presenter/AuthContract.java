@@ -1,5 +1,7 @@
 package com.example.myapplication.authentication.presenter;
 
+import android.content.Context;
+
 import com.example.myapplication.authentication.model.UserData;
 
 public interface AuthContract {
@@ -10,7 +12,7 @@ public interface AuthContract {
     }
     interface Presenter{
         public void foundCurrentUser();
-        public void signIn(String email, String password);
+        public void signIn(String email, String password, Context context);
         public void signUp(UserData userData);
     }
 }

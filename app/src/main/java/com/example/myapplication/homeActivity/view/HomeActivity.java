@@ -1,7 +1,10 @@
 package com.example.myapplication.homeActivity.view;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
@@ -12,9 +15,13 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
+import com.example.myapplication.authentication.view.AuthenticationActivity;
+import com.example.myapplication.authentication.view.LoginFragment;
 import com.example.myapplication.mealDetails.view.MealsDetailsActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class HomeActivity extends AppCompatActivity implements HomeActivityCommunicator{
     private BottomNavigationView bottomNavigationView;
@@ -27,12 +34,28 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityCommu
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         navController = Navigation.findNavController(this,R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
-        bottomNavigationView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
+        if (!LoginFragment.isSingedIn) {
+            navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+                @Override
+                public void onDestinationChanged(@NonNull NavController navController, @NonNull NavDestination navDestination, @Nullable Bundle bundle) {
+                    if (navDestination.getId() == R.id.favoriteMealsFragment || navDestination.getId() == R.id.planMealFragment || navDestination.getId() == R.id.settingFragment) {
+                        Snackbar snackbar = Snackbar.make(bottomNavigationView, "Please Login to Start all Features", Snackbar.LENGTH_SHORT);
+                        snackbar.setAction("login now", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                FirebaseAuth.getInstance().signOut();
+                                Intent intent = new Intent(HomeActivity.this, AuthenticationActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        });
+                        snackbar.show();
+                        navController.navigateUp();
+                    }
+                }
+            });
+        }
     }
     @Override
     public void showToast(String message) {

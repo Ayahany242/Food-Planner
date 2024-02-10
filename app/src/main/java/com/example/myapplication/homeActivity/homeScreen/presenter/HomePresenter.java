@@ -34,22 +34,11 @@ public class HomePresenter implements HomeContract.Presenter , NetworkCallback.H
         Log.i(TAG, "getAllCategory: make Networks call ");
     }
 
-   /* @Override
-    public void getAllCountries() {
-        repositoryView.makeNetworkCallForAllCountries(this);
-        Log.i(TAG, "getAllCountries: make Networks call ");
-    }*/
-
     @Override
     public void onSuccessRandomResponse(MealsItem mealsItem) {
         view.showRandomMeal(mealsItem);
         Log.i(TAG, "onSuccessResult: Random Call presenter CategoryPresenter "+mealsItem.getIdMeal());
     }
-    /*@Override
-    public void onSuccessAllCountryResponse(List countries) {
-        view.showAllCountries(countries);
-        Log.i(TAG, "onSuccessResult: Random Call presenter onSuccessAllCountryResponse "+countries);
-    }*/
     @Override
     public void onSuccessAllCategoryResponse(List categories) {
         view.showAllCategory(categories);

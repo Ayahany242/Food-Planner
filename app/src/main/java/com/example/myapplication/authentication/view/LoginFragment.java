@@ -27,9 +27,10 @@ public class LoginFragment extends Fragment implements AuthContract.View{
     private TextInputEditText passwordEditTxt;
     private CardView loginBtn;
     private ProgressBar progressBar;
-    private TextView signUpBtn;
+    private TextView signUpBtn, guestMode;
     private AuthContract.Presenter presenter;
     private static final String TAG = "Login";
+    public static boolean isSingedIn = false;
 
     FirebaseAuth mAuth;
     public LoginFragment() {
@@ -81,7 +82,7 @@ public class LoginFragment extends Fragment implements AuthContract.View{
                     progressBar.setVisibility(View.GONE);
                     passwordEditTxt.requestFocus();
                 } else{
-                    presenter.signIn(email,password);
+                    presenter.signIn(email,password, mainCommunication.getContext());
                     Log.i(TAG, "onClick: true");
                 }
             }
@@ -95,6 +96,7 @@ public class LoginFragment extends Fragment implements AuthContract.View{
                 mainCommunication.navigationBetweenAuth(R.id.signUpFragment);
             }
         });
+        guestMode.setOnClickListener((v)->mainCommunication.navOnGuest());
         return view;
     }
     private void initUI(View view){
@@ -103,6 +105,7 @@ public class LoginFragment extends Fragment implements AuthContract.View{
         loginBtn= view.findViewById(R.id.loginBtn);
         progressBar = view.findViewById(R.id.progressBarLogin);
         signUpBtn = view.findViewById(R.id.signUpBtn);
+        guestMode = view.findViewById(R.id.guestMode);
     }
     @Override
     public void userFounded() {
@@ -111,6 +114,7 @@ public class LoginFragment extends Fragment implements AuthContract.View{
 
     @Override
     public void onSuccessfully() {
+        isSingedIn = true;
         mainCommunication.navOnSuccess();
         progressBar.setVisibility(View.GONE);
 

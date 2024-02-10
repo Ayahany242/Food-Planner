@@ -198,7 +198,6 @@ public class MealsDetailsActivity extends AppCompatActivity implements MealDetai
             favoriteBtn.setImageResource(R.drawable.favorite_fill_ic);
         } else {
             favoriteBtn.setImageResource(R.drawable.favorite_ic);
-
         }
     }
 

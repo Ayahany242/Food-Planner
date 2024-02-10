@@ -8,4 +8,5 @@ public interface MainCommunication {
     public Context getContext();
     public void navigationBetweenAuth(int source);
     public void navOnSuccess();
+    public void navOnGuest();
 }

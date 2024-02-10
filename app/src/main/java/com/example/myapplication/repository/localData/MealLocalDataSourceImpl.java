@@ -102,4 +102,26 @@ public class MealLocalDataSourceImpl implements MealLocalDataSource {
             }
         }).start();
     }
+
+    @Override
+    public void deleteAllMeals() {
+        new Thread(()->{
+            try {
+                dao.deleteAllMeals();
+            }catch (SQLiteConstraintException e) {
+                Log.i(TAG, "deleteAllMeals: " + e);
+            }
+        }).start();
+    }
+
+    @Override
+    public void deleteAllMealsPlan() {
+        new Thread(()->{
+            try {
+                dao.deleteAllMealsPlan();
+            }catch (SQLiteConstraintException e) {
+                Log.i(TAG, "deleteAllMeals: " + e);
+            }
+        }).start();
+    }
 }

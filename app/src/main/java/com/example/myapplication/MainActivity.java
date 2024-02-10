@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.myapplication.authentication.view.AuthenticationActivity;
 import com.example.myapplication.authentication.view.MainCommunication;
+import com.example.myapplication.homeActivity.view.HomeActivity;
 
 public class MainActivity extends AppCompatActivity {
     private Button skipBtn;
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(getApplicationContext(),AuthenticationActivity.class);
+                Intent intent = new Intent(getApplicationContext(), AuthenticationActivity.class);
                 startActivity(intent);
             }
         },2000);

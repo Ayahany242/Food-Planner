@@ -16,4 +16,6 @@ public interface MealLocalDataSource {
     Flowable<List<MealsPlan>> getAllPlannedMeal(String day);
     public void addPlannedMeal(MealsPlan mealsPlan);
     public void deletePlannedMeal(MealsPlan mealsPlan);
+    public void deleteAllMeals();
+    public void deleteAllMealsPlan();
 }

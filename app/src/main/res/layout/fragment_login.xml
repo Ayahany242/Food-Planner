@@ -236,4 +236,17 @@
         app:layout_constraintTop_toTopOf="@+id/editText"
         app:layout_constraintVertical_bias="0.45" />
 
+    <TextView
+        android:id="@+id/guestMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/login_as_guest"
+        android:textSize="16sp"
+        android:textColor="@color/text"
+        app:layout_constraintStart_toStartOf="@+id/textView10"
+        app:layout_constraintTop_toBottomOf="@+id/editText" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
