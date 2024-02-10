@@ -103,7 +103,6 @@ public class PlanMealFragment extends Fragment implements PlannedMealsContract.V
         selectedCalendar.set(Calendar.YEAR, year);
         selectedCalendar.set(Calendar.MONTH, month);
         selectedCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-
         // Get the selected date in a desired format
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         selectedDate = sdf.format(selectedCalendar.getTime());
@@ -113,7 +112,6 @@ public class PlanMealFragment extends Fragment implements PlannedMealsContract.V
         dateWithDayOfWeek = dayOfWeek  + " (" + selectedDate + ")";
         presenter.getAllPlannedMeal(dateWithDayOfWeek);
         dateTv.setText(dayOfWeek + selectedDate);
-
     }
 
     @Override

@@ -3,8 +3,16 @@ package com.example.myapplication.authentication.presenter;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
+import com.example.myapplication.authentication.model.UserData;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -14,6 +22,7 @@ import java.util.Map;
 public class AuthPresenter implements AuthContract.Presenter{
     private AuthContract.View view;
     private FirebaseAuth mAuth;
+    private FirebaseUser firebaseUser;
     private FirebaseFirestore firestore;
     private String userID;
     private final String TAG = "tag";
@@ -41,10 +50,13 @@ public class AuthPresenter implements AuthContract.Presenter{
         });
     }
     @Override
-    public void signUp(String email, String password, String fullName) {
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task ->{
+    public void signUp(UserData userData) {
+        mAuth.createUserWithEmailAndPassword(userData.getEmail(), userData.getPassword()).addOnCompleteListener(task ->{
             if (task.isSuccessful()){
-                connectToDatabase(email,password,fullName);
+                //connectToDatabase(email,password,fullName);
+                firebaseUser = mAuth.getCurrentUser();
+              //  UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder().setDisplayName()
+                enterUserDataIntoRealTimeDB(userData);
             }else {
                 view.onFailure(task.getException().getMessage());
             }
@@ -64,5 +76,21 @@ public class AuthPresenter implements AuthContract.Presenter{
             view.onFailure(command.getMessage());
             Log.i(TAG, "addOnFailureListener: failed "+command.getMessage());
         });
+    }
+    private void enterUserDataIntoRealTimeDB(UserData userData){
+        userID = mAuth.getCurrentUser().getUid();
+        DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("Registered users");
+        referenceProfile.child(userID).setValue(userData).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    view.onSuccessfully();
+                    Log.i(TAG, "connectToDatabase: success "+userID);
+                }else{
+                    view.onFailure("User Register failed. Please try again");
+                }
+            }
+        });
+
     }
 }

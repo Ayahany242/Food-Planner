@@ -8,6 +8,7 @@ import androidx.navigation.ui.NavigationUI;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
@@ -26,6 +27,12 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityCommu
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         navController = Navigation.findNavController(this,R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
+        bottomNavigationView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
     @Override
     public void showToast(String message) {

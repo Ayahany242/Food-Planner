@@ -62,8 +62,6 @@ public class FavoriteMealsFragment extends Fragment implements FavoriteMealsCont
     private void initUI(View view){
         recyclerView = view.findViewById(R.id.allFavoriteMealsRV);
         adapter = new FavoriteMealsRVAdapter(mainCommunication,new ArrayList<>(),this);
-        imageView = view.findViewById(R.id.userProfile);
-        userName = view.findViewById(R.id.containerTv);
         //manager = new GridLayoutManager(mainCommunication.getContext(),2,GridLayoutManager.VERTICAL,false);
         manager = new LinearLayoutManager(mainCommunication.getContext());
         manager.setOrientation(RecyclerView.VERTICAL);

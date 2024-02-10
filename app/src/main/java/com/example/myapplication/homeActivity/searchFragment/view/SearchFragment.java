@@ -166,12 +166,4 @@ public class SearchFragment extends Fragment implements SearchContract.View ,onC
     public void cardCountryListener(String cardItem) {
 
     }
-
-   /* private void initResult(){
-        adapterRv = new ResultSearchAdapterRv(new ArrayList<>(),mainCommunication,this );
-        GridLayoutManager manager = new GridLayoutManager(mainCommunication.getContext(),2);
-        manager.setOrientation(RecyclerView.VERTICAL);
-//        resultRv.setLayoutManager(manager);
-//        resultRv.setAdapter(adapterRv);
-    }*/
 }

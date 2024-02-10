@@ -6,41 +6,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".homeActivity.favoriteMealsFragment.view.FavoriteMealsFragment">
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/app_bar_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Your favourite Meal List"
+            android:textAlignment="viewStart"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="RtlCompat" />
+
+    </FrameLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/allFavoriteMealsRV"
-        android:layout_width="358dp"
-        android:layout_height="610dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="13dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.363"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userProfile">
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout">
 
     </androidx.recyclerview.widget.RecyclerView>
 
-    <TextView
-        android:layout_width="274dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="16dp"
-        android:text="Aya Hany"
-        android:id="@+id/containerTv"
-        android:textAppearance="?attr/textAppearanceHeadline6"
-        app:layout_constraintBottom_toBottomOf="@+id/userProfile"
-        app:layout_constraintStart_toEndOf="@+id/userProfile"
-        app:layout_constraintTop_toTopOf="@+id/userProfile" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/userProfile"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:src="@drawable/girl_icon"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,7 +6,7 @@
     <string name="password">Password</string>
     <string name="emailHint">Enter the email</string>
     <string name="passwordHint">Enter the password</string>
-    <string name="login">Login</string>
+    <string name="login">Sign In</string>
     <string name="fullName">Full Name</string>
     <string name="registration">Sign Up</string>
     <string name="google">Google</string>
@@ -31,6 +31,19 @@
     <string name="view_all">View All</string>
     <string name="date">Date</string>
     <string name="planner">Your Plan</string>
+    <string name="welcome_back">Welcome back</string>
+    <string name="login_to_your_account">Login to your account</string>
+    <string name="or">__________________________Or__________________________</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="your_favourite_meal_list">Your favourite Meal List</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="theme">Dark Mode</string>
+    <string name="edit_account">Edit account</string>
+    <string name="create_account">Create Account</string>
+    <string name="sign_up">Fill your information below or register with your social account.</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="re_enter_the_password">Re-enter the password</string>
+    <string name="have_an_account">Have an account?</string>
 
     <string-array name="flags">
         <item>https://www.worldometers.info/img/flags/us-flag.gif</item>
